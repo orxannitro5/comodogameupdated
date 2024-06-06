@@ -1,0 +1,55 @@
+body{
+    overflow-x: hidden;
+}
+.gamepad-main-block{
+    background-image: url(./assets/testimonial_bg.png.webp);
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 120px 0px;
+    background-size: 1900px;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+
+}
+
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.stars{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px
+}
+
+.star{
+    width: 15px;
+    margin-inline:3px ;
+}
+.gamepad-block-title-number{
+    display: flex;
+    justify-content: center;
+}
+.gamepad-block-username{
+    text-align: center;
+    font-size: 18px;
+    font-weight: 800;
+}
+.gamepad-block-first-text{
+    color: grey;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 30px;
+    font-weight: bold;
+}
+.gamepad-block-second-text{
+    text-align: center;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 600;
+}

@@ -1,0 +1,23 @@
+.about-block-after-header{
+    background-image: url(./assets/home-banner.jpg.webp);
+    height: 400px;
+    background-size: 1800px;
+}
+.about-block-after-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+.about-block-after-header-nav1{
+    font-size: 18px;
+    color: white;
+    text-align: center;
+}
+.about-block-after-header-nav{
+    font-size: 25px;
+    color: white;
+    margin-top: 10px;
+}
