@@ -1,11 +1,38 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import racer from "./assets/about_img.png.webp";
 import playstation from "./assets/b_map1.png.webp";
 import darts from "./assets/b_map2.png.webp";
 import playstationimg from "./assets/b_map3.png.webp";
 import "./about-us-block.css"
 import americanfootball from "./assets/b_map4.png.webp";
+import AddGame from "./addGame"
+import GameList from "./gameList"
 export default function Aboutusblock() {
+    const [gameList,setGameList] = useState([])
+    const [showAddPage, setShowAddPage] = useState(false)
+    const openAddPage = () => {
+        setShowAddPage(true)
+    }
+    // useEffect(()=>{
+    //     const listInString = window.localStorage.getItem("GameList")
+    //     if(listInString){
+    //         setGameList(JSON.parse(listInString))
+    //     }
+        
+    // },[])
+    const returnToMainPage = () => {
+        setShowAddPage(false)
+    }
+    const _setGameList = (list)=>{
+        setGameList(list)
+        window.localStorage.setItem("GameList",JSON.stringify(list))
+
+    }
+    const addGameHnd = (data)=>{
+        _setGameList([...gameList,data])
+        setShowAddPage(false)
+    }
+    
     return (
         <div className="home-section-third-block">
             <div className="home-section-third-block-top">
@@ -26,21 +53,11 @@ export default function Aboutusblock() {
                 <h1 className="home-section-third-block-low-opacity-title">UPCOMING GAMES</h1>
                 <h1 className="home-section-third-block-high-opacity-title">UPCOMING GAMES</h1>
             </div>
-            <div className="home-section-third-block-last-block">
-                <div className="home-section-third-block-images-texts">
-                    <div className="home-section-third-block-images-text best-game">Best Ps4 Games</div>
-                    <div className="home-section-third-block-images-text world-dart" >World Dart 2019</div>
-                    <div className="home-section-third-block-images-text xbox-games">New XBOX GAMES</div>
-                    <div className="home-section-third-block-images-text american-football">American Football</div>
-                </div>
-                <div className="home-section-third-block-images">
-                    <div className="home-section-third-block-image"><img src={playstation} alt="" /></div>
-                    <div className="home-section-third-block-image"><img src={darts} alt="" /></div>
-                    <div className="home-section-third-block-image"><img src={playstationimg} alt="" /></div>
-                    <div className="home-section-third-block-image"><img src={americanfootball} alt="" /></div>
-                </div>
+            {showAddPage && <AddGame onBackBtnHnd={returnToMainPage} onSubmitClickHnd={addGameHnd}/>}
+            {showAddPage === false &&
+                <GameList list={gameList} onAddPageHnd={openAddPage} />
+            }
 
-            </div>
         </div>
     )
 }

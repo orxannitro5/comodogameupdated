@@ -1,0 +1,11 @@
+.add-game-main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.back-add-buttons{
+    text-align: center;
+    
+}
