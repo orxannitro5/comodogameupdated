@@ -7,11 +7,18 @@ import "./about-us-block.css"
 import americanfootball from "./assets/b_map4.png.webp";
 import AddGame from "./addGame"
 import GameList from "./gameList"
+import EditGame from "./editGame"
+const PageEnum = {
+    list :"list",
+    add:"add",
+    edit:"edit"
+};
 export default function Aboutusblock() {
     const [gameList,setGameList] = useState([])
-    const [showAddPage, setShowAddPage] = useState(false)
+    const [showCurrentPage, setShowCurrentPage] = useState(PageEnum.list)
+    const [dataToEdit,setDataToEdit] = useState(null)
     const openAddPage = () => {
-        setShowAddPage(true)
+        setShowCurrentPage(PageEnum.add)
     }
     // useEffect(()=>{
     //     const listInString = window.localStorage.getItem("GameList")
@@ -21,7 +28,7 @@ export default function Aboutusblock() {
         
     // },[])
     const returnToMainPage = () => {
-        setShowAddPage(false)
+        setShowCurrentPage(PageEnum.list)
     }
     const _setGameList = (list)=>{
         setGameList(list)
@@ -30,7 +37,24 @@ export default function Aboutusblock() {
     }
     const addGameHnd = (data)=>{
         _setGameList([...gameList,data])
-        setShowAddPage(false)
+        setShowCurrentPage(PageEnum.list)
+    }
+    const deleteGame = (data)=>{
+        const indexToDelete = gameList.indexOf(data)
+        const tempList = [...gameList]
+        tempList.splice(indexToDelete,1)
+        setGameList(tempList)
+    }
+    const openEditPage = (data)=>{
+        setShowCurrentPage(PageEnum.edit)
+        setDataToEdit(data)
+    }
+    const updateData = (data)=>{
+        const filteredData = gameList.filter(x=> x.id === data.id)[0];
+        const indexOfRecord = gameList.indexOf(filteredData)
+        const tempData =[...gameList]
+        tempData[indexOfRecord] = data
+        setGameList(tempData)
     }
     
     return (
@@ -53,10 +77,11 @@ export default function Aboutusblock() {
                 <h1 className="home-section-third-block-low-opacity-title">UPCOMING GAMES</h1>
                 <h1 className="home-section-third-block-high-opacity-title">UPCOMING GAMES</h1>
             </div>
-            {showAddPage && <AddGame onBackBtnHnd={returnToMainPage} onSubmitClickHnd={addGameHnd}/>}
-            {showAddPage === false &&
-                <GameList list={gameList} onAddPageHnd={openAddPage} />
+            {showCurrentPage === PageEnum.add && <AddGame onBackBtnHnd={returnToMainPage} onSubmitClickHnd={addGameHnd}/>}
+            {showCurrentPage === PageEnum.list  &&
+                <GameList list={gameList}  onEditClickHnd={openEditPage} onAddPageHnd={openAddPage} onDeleteClickHnd={deleteGame} />
             }
+            {showCurrentPage === PageEnum.edit && <EditGame  onBackBtnHnd={returnToMainPage} onUpdateClickHnd={updateData} data={dataToEdit}/>}
 
         </div>
     )

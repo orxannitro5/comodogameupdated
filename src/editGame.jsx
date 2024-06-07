@@ -1,23 +1,23 @@
-import React, { useState } from "react";
-import "./addGame.css";
-const AddGame = ({onBackBtnHnd,onSubmitClickHnd}) => {
-    const [text,setText] =useState("")
+import React from "react"
+import { useState } from "react"
+const EditGame = ({onBackBtnHnd,onUpdateClickHnd,data})=>{
+    const [text,setText] =useState(data.text)
     const onTextChangeHnd = (e)=>{
         setText(e.target.value)
     }
     const onSubmitBtnClickHnd = (e)=>{
         e.preventDefault()
 
-        const data ={
-            id: new Date().toJSON().toString(),
+        const updateeddata ={
+            id: data.id,
             text: text
         }
-        onSubmitClickHnd(data)
+        onUpdateClickHnd(updateeddata)
         onBackBtnHnd()
 
     }
     return (
-       
+        
         <div className="add-game-main">
             <form onSubmit={onSubmitBtnClickHnd}>
                 <div className="add-game-input">
@@ -30,10 +30,10 @@ const AddGame = ({onBackBtnHnd,onSubmitClickHnd}) => {
                 </div>
                 <div className="back-add-buttons">
                     <input type="button" value="Back" onClick={onBackBtnHnd} />
-                    <input type="submit" value="Add Game"   />
+                    <input type="submit" value="Update Game"   />
                 </div>
             </form>
         </div>
     )
 }
-export default AddGame
+export default EditGame
