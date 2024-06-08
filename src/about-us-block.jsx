@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from "react"
+import React, {  useState } from "react"
 import racer from "./assets/about_img.png.webp";
-import playstation from "./assets/b_map1.png.webp";
-import darts from "./assets/b_map2.png.webp";
-import playstationimg from "./assets/b_map3.png.webp";
 import "./about-us-block.css"
-import americanfootball from "./assets/b_map4.png.webp";
 import AddGame from "./addGame"
 import GameList from "./gameList"
 import EditGame from "./editGame"
@@ -16,23 +12,23 @@ const PageEnum = {
 export default function Aboutusblock() {
     const [gameList,setGameList] = useState([])
     const [showCurrentPage, setShowCurrentPage] = useState(PageEnum.list)
-    const [dataToEdit,setDataToEdit] = useState(null)
+    const [dataToEdit,setDataToEdit] = useState({})
     const openAddPage = () => {
         setShowCurrentPage(PageEnum.add)
     }
-    // useEffect(()=>{
-    //     const listInString = window.localStorage.getItem("GameList")
-    //     if(listInString){
-    //         setGameList(JSON.parse(listInString))
-    //     }
-        
-    // },[])
+    
     const returnToMainPage = () => {
         setShowCurrentPage(PageEnum.list)
     }
     const _setGameList = (list)=>{
         setGameList(list)
         window.localStorage.setItem("GameList",JSON.stringify(list))
+
+    }
+    const openEditPage = (data)=>{
+        setShowCurrentPage(PageEnum.edit)
+        setDataToEdit(data)
+        console.log("Data to edit:", dataToEdit);
 
     }
     const addGameHnd = (data)=>{
@@ -45,10 +41,7 @@ export default function Aboutusblock() {
         tempList.splice(indexToDelete,1)
         setGameList(tempList)
     }
-    const openEditPage = (data)=>{
-        setShowCurrentPage(PageEnum.edit)
-        setDataToEdit(data)
-    }
+    
     const updateData = (data)=>{
         const filteredData = gameList.filter(x=> x.id === data.id)[0];
         const indexOfRecord = gameList.indexOf(filteredData)
@@ -79,9 +72,9 @@ export default function Aboutusblock() {
             </div>
             {showCurrentPage === PageEnum.add && <AddGame onBackBtnHnd={returnToMainPage} onSubmitClickHnd={addGameHnd}/>}
             {showCurrentPage === PageEnum.list  &&
-                <GameList list={gameList}  onEditClickHnd={openEditPage} onAddPageHnd={openAddPage} onDeleteClickHnd={deleteGame} />
+                <GameList list={gameList} onEditClickHnd={openEditPage} onAddPageHnd={openAddPage} onDeleteClickHnd={deleteGame} />
             }
-            {showCurrentPage === PageEnum.edit && <EditGame  onBackBtnHnd={returnToMainPage} onUpdateClickHnd={updateData} data={dataToEdit}/>}
+            {showCurrentPage === PageEnum.edit && <EditGame data={dataToEdit} onBackBtnHnd={returnToMainPage} onUpdateClickHnd={updateData} />}
 
         </div>
     )

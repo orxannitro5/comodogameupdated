@@ -1,28 +1,30 @@
 import React, { useState } from "react";
 import "./addGame.css";
-const AddGame = ({onBackBtnHnd,onSubmitClickHnd}) => {
-    const [text,setText] =useState("")
-    const onTextChangeHnd = (e)=>{
+const AddGame = ({ onBackBtnHnd, onSubmitClickHnd }) => {
+    const [text, setText] = useState("")
+    const onTextChangeHnd = (e) => {
         setText(e.target.value)
     }
-    const onSubmitBtnClickHnd = (e)=>{
+    const onSubmitBtnClickHnd = (e) => {
         e.preventDefault()
 
-        const data ={
+        const data = {
             id: new Date().toJSON().toString(),
             text: text
         }
         onSubmitClickHnd(data)
         onBackBtnHnd()
 
+        
     }
+    
     return (
-       
+
         <div className="add-game-main">
             <form onSubmit={onSubmitBtnClickHnd}>
                 <div className="add-game-input">
                     <label >Choose Image : </label>
-                    <input type="file"  />
+                    <input type="file" />
                 </div>
                 <div className="add-game-input">
                     <label >Write Text for Game :</label>
@@ -30,7 +32,7 @@ const AddGame = ({onBackBtnHnd,onSubmitClickHnd}) => {
                 </div>
                 <div className="back-add-buttons">
                     <input type="button" value="Back" onClick={onBackBtnHnd} />
-                    <input type="submit" value="Add Game"   />
+                    <input type="submit" value="Add Game" />
                 </div>
             </form>
         </div>

@@ -14,7 +14,8 @@ const gameList = ({ onAddPageHnd, list, onDeleteClickHnd , onEditClickHnd }) => 
                             <div className="home-section-third-block-last-block-content" key={game.id}>
                                 <div className="home-section-third-block-text">{game.text}</div>
                             </div>
-                            <input type="button" value="Edit" onClick={onEditClickHnd} />
+                            <input type="button" value="Edit" onClick={() => onEditClickHnd(game)} 
+ />
                         </>
                     )
                 })}

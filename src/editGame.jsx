@@ -7,17 +7,14 @@ const EditGame = ({onBackBtnHnd,onUpdateClickHnd,data})=>{
     }
     const onSubmitBtnClickHnd = (e)=>{
         e.preventDefault()
-
         const updateeddata ={
             id: data.id,
             text: text
         }
         onUpdateClickHnd(updateeddata)
         onBackBtnHnd()
-
     }
     return (
-        
         <div className="add-game-main">
             <form onSubmit={onSubmitBtnClickHnd}>
                 <div className="add-game-input">
