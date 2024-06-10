@@ -1,11 +1,39 @@
 .add-game-main{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 30px;
-}
-
-.back-add-buttons{
-    text-align: center;
+    margin-top: 15px;
     
 }
+.add-game-input{
+    width: 100%;
+    margin-top: 5px;
+}
+.back-add-buttons{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+}
+.add-form-title{
+    text-align: center;
+}
+.add-form{
+    margin-top: 15px;
+    border: 1px solid black;
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+
+}
+.back-btn,.add-btn{
+    background-color: #2c2172;
+    padding:7px 30px;
+    border: 0px;
+    color: white;
+    border-radius: 5px;
+
+
+}
+

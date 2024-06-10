@@ -217,6 +217,11 @@
 }
 .add-game-btn{
     margin-top: 50px;
+    padding: 5px 20px ;
+    border-radius: 15px;
+    border: 0px;
+    background-color: #26139f;
+    color: white;
 }
 .home-section-third-block-last-block-content{
     background-image: url(./assets/b_map1.png.webp);
