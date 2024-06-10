@@ -34,3 +34,6 @@
     text-decoration: none;
     cursor: pointer;
   }
+  .view-data{
+    display: flex;
+  }

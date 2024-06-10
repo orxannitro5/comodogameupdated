@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./addGame.css";
 const AddGame = ({ onBackBtnHnd, onSubmitClickHnd }) => {
     const [text, setText] = useState("")
+    const [imageURL, setImageURL] = useState("");
     const onTextChangeHnd = (e) => {
         setText(e.target.value)
     }
@@ -10,6 +11,7 @@ const AddGame = ({ onBackBtnHnd, onSubmitClickHnd }) => {
 
         const data = {
             id: new Date().toJSON().toString(),
+            imageURL:imageURL,
             text: text
         }
         onSubmitClickHnd(data)
@@ -17,6 +19,15 @@ const AddGame = ({ onBackBtnHnd, onSubmitClickHnd }) => {
 
         
     }
+    
+
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const url = URL.createObjectURL(file);
+            setImageURL(url);
+        }
+    };
     
     return (
 
@@ -26,8 +37,8 @@ const AddGame = ({ onBackBtnHnd, onSubmitClickHnd }) => {
 
                 <div className="add-game-input">
                     <label >Choose Image : </label>
-                    <input type="file" />
-                </div>
+                    <input onChange={handleFileChange} type="file" />
+                    </div>
                 <div className="add-game-input">
                     <label >Write Text for Game : </label>
                     <input className="add-game-inputt" type="text" value={text} onChange={onTextChangeHnd} />

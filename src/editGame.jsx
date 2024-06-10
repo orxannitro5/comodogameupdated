@@ -3,6 +3,9 @@ import { useState } from "react"
 import "./addGame.css";
 const EditGame = ({onBackBtnHnd,onUpdateClickHnd,data})=>{
     const [text,setText] =useState(data.text)
+    const [imageURL, setImageURL] = useState(data.imageURL);
+    const [fileLabel, setFileLabel] = useState("(Выберите Файл)")
+
     const onTextChangeHnd = (e)=>{
         setText(e.target.value)
     }
@@ -10,11 +13,21 @@ const EditGame = ({onBackBtnHnd,onUpdateClickHnd,data})=>{
         e.preventDefault()
         const updateeddata ={
             id: data.id,
+            imageURL:imageURL,
             text: text
         }
         onUpdateClickHnd(updateeddata)
         onBackBtnHnd()
     }
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const url = URL.createObjectURL(file);
+            setImageURL(url);
+            setFileLabel("(Файл Выбран)")
+        }
+    };
+    
     return (
         <div className="add-game-main">
             <form className="add-form" onSubmit={onSubmitBtnClickHnd}>
@@ -22,7 +35,8 @@ const EditGame = ({onBackBtnHnd,onUpdateClickHnd,data})=>{
 
                 <div className="add-game-input">
                     <label >Choose Image : </label>
-                    <input type="file" />
+                    <input onChange={handleFileChange} type="file"   />
+                    <span className="span-file">{fileLabel}</span>
                 </div>
                 <div className="add-game-input">
                     <label >Write Text for Game : </label>
@@ -30,7 +44,7 @@ const EditGame = ({onBackBtnHnd,onUpdateClickHnd,data})=>{
                 </div>
                 <div className="back-add-buttons">
                     <input className="back-btn" type="button" value="Back" onClick={onBackBtnHnd} />
-                    <input className="add-btn" type="submit" value="Add Game" />
+                    <input className="add-btn" type="submit" value="Update Game" />
                 </div>
             </form>
         </div>

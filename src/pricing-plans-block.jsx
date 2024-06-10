@@ -49,8 +49,6 @@ export default function PricingPlans() {
                         </div>
                         </div>
                     ))}
-                    
-                
             </div>
         </div>
     )

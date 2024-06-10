@@ -10,8 +10,9 @@ const ViewGame = ({onClose,data}) => {
                 <div class="modal-content">
                     <span onClick={onClose} class="close">&times;</span>
                     <h3>Game Data</h3>
-                    <div>
+                    <div className="view-data">
                         <label> Game Text : {data.text}</label>
+                        <label> Photo Url : {data.imageURL}</label>
                     </div>
                 </div>
                 

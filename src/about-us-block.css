@@ -224,7 +224,6 @@
     color: white;
 }
 .home-section-third-block-last-block-content{
-    background-image: url(./assets/b_map1.png.webp);
     width: 263px;
     height: 350px;
     display: flex;
@@ -252,6 +251,10 @@
     padding: 5px;
     margin: 5px;
     background-color: #081e3b;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
 }
 .map-content-button{
     padding:3px 5px;
