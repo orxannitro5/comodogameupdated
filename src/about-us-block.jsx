@@ -3,7 +3,7 @@ import racer from "./assets/about_img.png.webp";
 import "./about-us-block.css"
 import AddGame from "./addGame"
 import GameList from "./gameList"
-import EditGame from "./editGame"
+import EditGame from "./editGame";
 const PageEnum = {
     list :"list",
     add:"add",
@@ -35,21 +35,20 @@ export default function Aboutusblock() {
         _setGameList([...gameList,data])
         setShowCurrentPage(PageEnum.list)
     }
+    
     const deleteGame = (data)=>{
         const indexToDelete = gameList.indexOf(data)
         const tempList = [...gameList]
         tempList.splice(indexToDelete,1)
         setGameList(tempList)
     }
-    
     const updateData = (data)=>{
         const filteredData = gameList.filter(x=> x.id === data.id)[0];
-        const indexOfRecord = gameList.indexOf(filteredData)
+        const indexOfRecord = gameList.indexOf(filteredData) 
         const tempData =[...gameList]
         tempData[indexOfRecord] = data
         setGameList(tempData)
     }
-    
     return (
         <div className="home-section-third-block">
             <div className="home-section-third-block-top">
@@ -72,10 +71,9 @@ export default function Aboutusblock() {
             </div>
             {showCurrentPage === PageEnum.add && <AddGame onBackBtnHnd={returnToMainPage} onSubmitClickHnd={addGameHnd}/>}
             {showCurrentPage === PageEnum.list  &&
-                <GameList list={gameList} onEditClickHnd={openEditPage} onAddPageHnd={openAddPage} onDeleteClickHnd={deleteGame} />
+                <GameList list={gameList}  onEditClickHnd={openEditPage} onAddPageHnd={openAddPage} onDeleteClickHnd={deleteGame} />
             }
             {showCurrentPage === PageEnum.edit && <EditGame data={dataToEdit} onBackBtnHnd={returnToMainPage} onUpdateClickHnd={updateData} />}
-
         </div>
     )
 }
