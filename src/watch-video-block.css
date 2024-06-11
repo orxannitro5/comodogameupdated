@@ -1,6 +1,7 @@
 .home-section-first-block{
     background-size: 1800px;
-    height: 1000px;
+    height: 100%;
+    padding: 100px;
     background-image: url(./assets/home-banner.jpg.webp);
     background-position: center;
     background-origin: border-box;

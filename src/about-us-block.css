@@ -230,6 +230,9 @@
     justify-content: center;
     align-items: center;
 }
+.home-section-third-block{
+    margin-bottom: 20px;
+}
 .home-section-third-block-text{
     background-color: #2c2172;
     opacity: 0.8;

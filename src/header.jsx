@@ -19,12 +19,14 @@ export default function Header() {
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
-
+    const refreshFunc = () => {
+        window.location.reload()
+  };
     return (
         <>
             <div className="header-main">
                 <div className="header-main-content">
-                    <img className="nav-logo" src={comodologo} alt="" />
+                    <img onClick={refreshFunc} className="nav-logo" src={comodologo} alt="" />
                     <div className="nav-menu">
                         <NavLink to="/" exact activeClassName="active" className="nav-link">HOME</NavLink>
                         <NavLink to="/about" activeClassName="active" className="nav-link">ABOUT</NavLink>

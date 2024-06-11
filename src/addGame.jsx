@@ -4,6 +4,7 @@ const AddGame = ({ onBackBtnHnd, onSubmitClickHnd }) => {
     const [text, setText] = useState("")
     const [imageURL, setImageURL] = useState("");
     const [fileLabel, setFileLabel] = useState("(Выберите Файл)")
+    const [fileName, setFileName] = useState("")
 
     const onTextChangeHnd = (e) => {
         setText(e.target.value)
@@ -28,7 +29,9 @@ const AddGame = ({ onBackBtnHnd, onSubmitClickHnd }) => {
         if (file) {
             const url = URL.createObjectURL(file);
             setImageURL(url);
-            setFileLabel("(Файл Выбран)")
+            setFileName(file.name)
+            setFileLabel(" Файл Выбран :  " +fileName)
+            console.log(fileName)
         }
     };
     
@@ -41,7 +44,7 @@ const AddGame = ({ onBackBtnHnd, onSubmitClickHnd }) => {
                 <div className="add-game-input">
                     <label >Choose Image : </label>
                     <input onChange={handleFileChange} type="file" />
-                    <span className="span-file">{fileLabel}</span>
+                    <span className="span-file">{fileLabel}  {fileName}</span>
                     </div>
                 <div className="add-game-input">
                     <label >Write Text for Game : </label>
