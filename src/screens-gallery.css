@@ -11,7 +11,9 @@
     padding-bottom: 100px;
     padding-top: 50px;
 }
-
+.add-photo-to-gallery{
+    margin-top: 20px;
+}
 .screens-gallery-left-side-first-row{
     display: flex;
     justify-content: space-between;
@@ -86,4 +88,20 @@
         font-size: 36px;
         margin-top: -50px;
     }
+}
+.photo{
+    width: 360px ;
+    height: 210px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+.photo-list-main-block{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+}
+.photo-list-content{
+    margin: 10px 5px;
 }

@@ -12,6 +12,7 @@
 }
 .exit-button{
     text-align: right;
+    cursor: pointer;
 }
 .home-section-first-block-right-side-title{
     font-size: 60px;

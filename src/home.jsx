@@ -170,9 +170,9 @@ export default function Home() {
                                 <p className="home-section-blog-content-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
                                     dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.</p>
                                 <div className="home-section-blog-content-info">
-                                    <div>📅 13th Dec</div>
-                                    <div>🤍 15</div>
-                                    <div>💬 05</div>
+                                    <div>📅 31th Dec</div>
+                                    <div>🤍 12</div>
+                                    <div>💬 95</div>
                                 </div>
 
                             </div>
@@ -184,9 +184,9 @@ export default function Home() {
                                 <p className="home-section-blog-content-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
                                     dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.</p>
                                 <div className="home-section-blog-content-info">
-                                    <div>📅 13th Dec</div>
-                                    <div>🤍 15</div>
-                                    <div>💬 05</div>
+                                    <div>📅 13th Jan</div>
+                                    <div>🤍 5</div>
+                                    <div>💬 08</div>
                                 </div>
 
                             </div>

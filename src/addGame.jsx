@@ -19,8 +19,6 @@ const AddGame = ({ onBackBtnHnd, onSubmitClickHnd }) => {
         }
         onSubmitClickHnd(data)
         onBackBtnHnd()
-
-        
     }
     
 

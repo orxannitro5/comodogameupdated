@@ -28,7 +28,6 @@ export default function Aboutusblock() {
     const openEditPage = (data)=>{
         setShowCurrentPage(PageEnum.edit)
         setDataToEdit(data)
-
     }
     const addGameHnd = (data)=>{
         _setGameList([...gameList,data])
