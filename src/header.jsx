@@ -11,6 +11,7 @@ import Contact from "./contact";
 import ViewMore from "./view-more";
 import LoginPage from "./loginPage";
 import ProtectedRoutes from "./protectedRoutes";
+import AdminPanel from "./adminPanel"
 
 
 
@@ -36,6 +37,9 @@ export default function Header() {
                         <NavLink to="/pricing" activeClassName="active" className="nav-link">PRICING</NavLink>
                         <NavLink to="/blog" activeClassName="active" className="nav-link">BLOG</NavLink>
                         <NavLink to="/contact" activeClassName="active" className="nav-link">CONTACT</NavLink>
+                        <NavLink to="/admin" activeClassName="active" className="nav-link">Admin Panel</NavLink>
+
+
                     </div>
                     <button className="header-button">JOIN US</button>
                     <div className="burger-icon" onClick={toggleMenu}>
@@ -58,7 +62,7 @@ export default function Header() {
             )}
             <Routes>
 
-                <Route path="/" element={<LoginPage />} />
+                <Route path="/login" element={<LoginPage />} />
                 <Route element={<ProtectedRoutes />}>
                     <Route path="/home" element={<Home />} />
                     <Route path="/about" element={<About />} />
@@ -67,6 +71,7 @@ export default function Header() {
                     <Route path="/blog" element={<Blog />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/viewmore" element={<ViewMore />} />
+                    <Route path="/admin" element={<AdminPanel />}></Route>
                 </Route>
 
 

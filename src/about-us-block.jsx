@@ -22,7 +22,6 @@ export default function Aboutusblock() {
     }
     const _setGameList = (list)=>{
         setGameList(list)
-        window.localStorage.setItem("GameList",JSON.stringify(list))
 
     }
     const openEditPage = (data)=>{
@@ -69,7 +68,7 @@ export default function Aboutusblock() {
             </div>
             {showCurrentPage === PageEnum.add && <AddGame onBackBtnHnd={returnToMainPage} onSubmitClickHnd={addGameHnd}/>}
             {showCurrentPage === PageEnum.list  &&
-                <GameList list={gameList}  onEditClickHnd={openEditPage} onAddPageHnd={openAddPage} onDeleteClickHnd={deleteGame} />
+                <GameList list={gameList}  onEditClickHnd={openEditPage} onAddPageHnd={addGameHnd} onDeleteClickHnd={deleteGame} />
             }
             {showCurrentPage === PageEnum.edit && <EditGame data={dataToEdit} onBackBtnHnd={returnToMainPage} onUpdateClickHnd={updateData} />}
         </div>

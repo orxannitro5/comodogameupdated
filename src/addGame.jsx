@@ -17,6 +17,9 @@ const AddGame = ({ onBackBtnHnd, onSubmitClickHnd }) => {
             imageURL:imageURL,
             text: text
         }
+        // const storedGames = JSON.parse(localStorage.getItem("GameList")) || [];
+        // storedGames.push(data);
+        // localStorage.setItem("GameList", JSON.stringify(storedGames));
         onSubmitClickHnd(data)
         onBackBtnHnd()
     }
