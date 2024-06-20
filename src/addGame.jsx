@@ -17,9 +17,23 @@ const AddGame = ({ onBackBtnHnd, onSubmitClickHnd }) => {
             imageURL:imageURL,
             text: text
         }
-        // const storedGames = JSON.parse(localStorage.getItem("GameList")) || [];
-        // storedGames.push(data);
-        // localStorage.setItem("GameList", JSON.stringify(storedGames));
+        let gameList = sessionStorage.getItem("GameList");
+
+        if (gameList === null) {
+            gameList = [];
+        }  else {
+            // Парсим существующий список и проверяем, что это массив
+            try {
+                gameList = JSON.parse(gameList);
+                if (!Array.isArray(gameList)) {
+                    gameList = [];
+                }
+            } catch (e) {
+                gameList = [];
+            }
+        }
+        gameList.push(data);
+        sessionStorage.setItem("GameList", JSON.stringify(gameList));
         onSubmitClickHnd(data)
         onBackBtnHnd()
     }
@@ -32,7 +46,6 @@ const AddGame = ({ onBackBtnHnd, onSubmitClickHnd }) => {
             setImageURL(url);
             setFileName(file.name)
             setFileLabel(" Файл Выбран :  " +fileName)
-            console.log(fileName)
         }
     };
     

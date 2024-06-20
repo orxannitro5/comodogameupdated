@@ -22,7 +22,7 @@ export default function Header() {
         setIsMenuOpen(!isMenuOpen);
     };
     const refreshFunc = () => {
-        navigate("/");
+        navigate("/login");
 
     };
     return (
@@ -37,9 +37,7 @@ export default function Header() {
                         <NavLink to="/pricing" activeClassName="active" className="nav-link">PRICING</NavLink>
                         <NavLink to="/blog" activeClassName="active" className="nav-link">BLOG</NavLink>
                         <NavLink to="/contact" activeClassName="active" className="nav-link">CONTACT</NavLink>
-                        <NavLink to="/admin" activeClassName="active" className="nav-link">Admin Panel</NavLink>
-
-
+                        <NavLink to="/admin" activeClassName="active" className="nav-link">Admin</NavLink>
                     </div>
                     <button className="header-button">JOIN US</button>
                     <div className="burger-icon" onClick={toggleMenu}>
@@ -71,7 +69,9 @@ export default function Header() {
                     <Route path="/blog" element={<Blog />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/viewmore" element={<ViewMore />} />
-                    <Route path="/admin" element={<AdminPanel />}></Route>
+                    <Route path="/admin" element={<AdminPanel />} />
+
+                    
                 </Route>
 
 

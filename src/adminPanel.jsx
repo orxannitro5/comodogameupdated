@@ -1,28 +1,27 @@
 import { useState } from "react"
 import AddGame from "./addGame"
 import "./adminPanel.css"
-const AdminPanel = ({onAddPageHnd})=>{
-    const [showCurrentPage,setShowCurrentPage] = useState("admin")
-
-    const PageEnum = {
-        admin:"admin",
-        add:"add"
+const AdminPanel = () => {
+    const [showCurrentPage, setShowCurrentPage] = useState(true)
+    const openAddForm = ()=>{
+        setShowCurrentPage(false)
     }
-    const returnToAdminPanel = ()=>{
-        setShowCurrentPage(PageEnum.admin)
+    const closeAddForm = ()=>{
+        setShowCurrentPage(true)
     }
-    const openAddForum = ()=>{
-        setShowCurrentPage(PageEnum.add)
+    const submitData = (data)=>{
+        console.log(data);
     }
     return (
-        <div className="admin-page-main">
-            {showCurrentPage === PageEnum.admin && <div className="admin-page">
-            Admin Panel
-            <input className="add-game-btn" type="button" value="Add Game" onClick={openAddForum} /> </div >}
-            {showCurrentPage === PageEnum.add && 
-            <AddGame onBackBtnHnd={returnToAdminPanel} onSubmitClickHnd={onAddPageHnd}  />
+        <div className="admin-panel-main">
+            {showCurrentPage &&
+                <div className="admin-panel">
+                    <input className="add-game-btn" type="button" value="Add Game" onClick={openAddForm}/>
+                </div>
             }
-            
+            {showCurrentPage === false &&
+                <AddGame onBackBtnHnd={closeAddForm} onSubmitClickHnd={submitData}/>
+            }
         </div>
     )
 }

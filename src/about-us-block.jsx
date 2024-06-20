@@ -1,4 +1,4 @@
-import React, {  useState } from "react"
+import React, {  useState ,useEffect} from "react"
 import racer from "./assets/about_img.png.webp";
 import "./about-us-block.css"
 import AddGame from "./addGame"
@@ -20,31 +20,36 @@ export default function Aboutusblock() {
     const returnToMainPage = () => {
         setShowCurrentPage(PageEnum.list)
     }
-    const _setGameList = (list)=>{
-        setGameList(list)
-
-    }
+    
     const openEditPage = (data)=>{
         setShowCurrentPage(PageEnum.edit)
         setDataToEdit(data)
     }
-    const addGameHnd = (data)=>{
-        _setGameList([...gameList,data])
-        setShowCurrentPage(PageEnum.list)
+    const deleteGame = (data)=>{
+       
+        // console.log(data);
+        // const dataToDelete = sessionStorage.removeItem("GameList" , data)
+        // const data2 = sessionStorage.getItem("GameList")
+
+        //  const newData = []
+        // console.log(data2);
+        // const index = indexToDelete.filter(x=>x.id=== data.id)
+        
+        // console.log(index);
+        // const indexToDelete = gameList.indexOf(data)
+        // const tempList = [...gameList]
+        // tempList.splice(indexToDelete,1)
+        // setGameList(tempList)
     }
     
-    const deleteGame = (data)=>{
-        const indexToDelete = gameList.indexOf(data)
-        const tempList = [...gameList]
-        tempList.splice(indexToDelete,1)
-        setGameList(tempList)
-    }
     const updateData = (data)=>{
         const filteredData = gameList.filter(x=> x.id === data.id)[0];
         const indexOfRecord = gameList.indexOf(filteredData) 
         const tempData =[...gameList]
         tempData[indexOfRecord] = data
+        sessionStorage.setItem("GameList", JSON.stringify(tempData))
         setGameList(tempData)
+
     }
     return (
         <div className="home-section-third-block">
@@ -66,9 +71,8 @@ export default function Aboutusblock() {
                 <h1 className="home-section-third-block-low-opacity-title">UPCOMING GAMES</h1>
                 <h1 className="home-section-third-block-high-opacity-title">UPCOMING GAMES</h1>
             </div>
-            {showCurrentPage === PageEnum.add && <AddGame onBackBtnHnd={returnToMainPage} onSubmitClickHnd={addGameHnd}/>}
             {showCurrentPage === PageEnum.list  &&
-                <GameList list={gameList}  onEditClickHnd={openEditPage} onAddPageHnd={addGameHnd} onDeleteClickHnd={deleteGame} />
+                <GameList   onEditClickHnd={openEditPage} onAddPageHnd={openAddPage}  />
             }
             {showCurrentPage === PageEnum.edit && <EditGame data={dataToEdit} onBackBtnHnd={returnToMainPage} onUpdateClickHnd={updateData} />}
         </div>
