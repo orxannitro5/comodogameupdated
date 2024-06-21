@@ -21,7 +21,6 @@ const EditPhoto = ({onBackBtnHnd,onUpdateClickHnd,data}) => {
             setImageURL(url);
             setFileName(file.name)
             setFileLabel(" Файл Выбран :  " +file.name)
-            console.log(file.name)
         }
     };
     return (

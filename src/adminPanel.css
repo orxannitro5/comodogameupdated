@@ -1,7 +1,56 @@
 .admin-panel{
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f0f0;
+    width: 100%;
+    height: 100vh;
+    padding: 20px;
 }
 .admin-panel-main{
-    padding: 20px;
+    display: flex;
+    flex-direction: row;
 
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 90%;
+    margin: 20px;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+.edit-btn{
+    padding: 5px;
+}
+.delete-btn{
+    padding: 5px;
+}
+.add-game-btn{
+  margin: 20px
+}
+.admin-panel-left{
+  /* background-color: rgb(114, 108, 108); */
+  font-size: 20px;
+  width: 25%;
+}
+.admin-panel-left-title-game,.admin-panel-left-title-photo,.admin-panel-left-title-admin{
+  margin: 15px 10px ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.admin-panel-left-title-admin{
+  border-bottom: 1px solid grey;
+}
+.avatar{
+  width: 100px;
 }

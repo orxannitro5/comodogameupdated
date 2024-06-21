@@ -11,6 +11,23 @@ const AddPhotoToGallery = ({ onBackBtnHnd, onSubmitClickHnd })=>{
             id: new Date().toJSON().toString(),
             imageURL:imageURL,
         }
+        let imageList = sessionStorage.getItem("ImageList");
+
+        if (imageList === null  ) {
+            imageList = [];
+        }  else {
+            // Парсим существующий список и проверяем, что это массив
+            try {
+                imageList = JSON.parse(imageList);
+                if (!Array.isArray(imageList)) {
+                    imageList = [];
+                }
+            } catch (e) {
+                imageList = [];
+            }
+        }
+        imageList.push(data);
+        sessionStorage.setItem("ImageList", JSON.stringify(imageList));
         onSubmitClickHnd(data)
         onBackBtnHnd()
     }
@@ -21,14 +38,12 @@ const AddPhotoToGallery = ({ onBackBtnHnd, onSubmitClickHnd })=>{
             setImageURL(url);
             setFileName(file.name)
             setFileLabel(" Файл Выбран :  " +fileName)
-            console.log(fileName)
         }
     };
     return (
         <div className="add-game-main">
         <form className="add-form" onSubmit={onSubmitBtnClickHnd}>
-        <h3 className="add-form-title">Add Game Form</h3>
-
+        <h3 className="add-form-title">Add Photo Form</h3>
             <div className="add-game-input">
                 <label >Choose Image : </label>
                 <input onChange={handleFileChange} type="file" />

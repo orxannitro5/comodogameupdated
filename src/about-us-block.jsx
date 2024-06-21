@@ -10,47 +10,16 @@ const PageEnum = {
     edit:"edit"
 };
 export default function Aboutusblock() {
-    const [gameList,setGameList] = useState([])
-    const [showCurrentPage, setShowCurrentPage] = useState(PageEnum.list)
-    const [dataToEdit,setDataToEdit] = useState({})
-    const openAddPage = () => {
-        setShowCurrentPage(PageEnum.add)
-    }
+    // const [gameList,setGameList] = useState([])
     
-    const returnToMainPage = () => {
-        setShowCurrentPage(PageEnum.list)
-    }
     
-    const openEditPage = (data)=>{
-        setShowCurrentPage(PageEnum.edit)
-        setDataToEdit(data)
-    }
-    const deleteGame = (data)=>{
-       
-        // console.log(data);
-        // const dataToDelete = sessionStorage.removeItem("GameList" , data)
-        // const data2 = sessionStorage.getItem("GameList")
-
-        //  const newData = []
-        // console.log(data2);
-        // const index = indexToDelete.filter(x=>x.id=== data.id)
-        
-        // console.log(index);
-        // const indexToDelete = gameList.indexOf(data)
-        // const tempList = [...gameList]
-        // tempList.splice(indexToDelete,1)
-        // setGameList(tempList)
-    }
     
-    const updateData = (data)=>{
-        const filteredData = gameList.filter(x=> x.id === data.id)[0];
-        const indexOfRecord = gameList.indexOf(filteredData) 
-        const tempData =[...gameList]
-        tempData[indexOfRecord] = data
-        sessionStorage.setItem("GameList", JSON.stringify(tempData))
-        setGameList(tempData)
-
-    }
+    
+    // useEffect(() => {
+    //     const storedGameList = JSON.parse(sessionStorage.getItem("GameList") || "[]");
+    //     setGameList(storedGameList);
+    // }, []);
+    
     return (
         <div className="home-section-third-block">
             <div className="home-section-third-block-top">
@@ -71,10 +40,7 @@ export default function Aboutusblock() {
                 <h1 className="home-section-third-block-low-opacity-title">UPCOMING GAMES</h1>
                 <h1 className="home-section-third-block-high-opacity-title">UPCOMING GAMES</h1>
             </div>
-            {showCurrentPage === PageEnum.list  &&
-                <GameList   onEditClickHnd={openEditPage} onAddPageHnd={openAddPage}  />
-            }
-            {showCurrentPage === PageEnum.edit && <EditGame data={dataToEdit} onBackBtnHnd={returnToMainPage} onUpdateClickHnd={updateData} />}
+            <GameList />
         </div>
     )
 }
