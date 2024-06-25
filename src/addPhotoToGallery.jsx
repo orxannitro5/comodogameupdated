@@ -11,23 +11,6 @@ const AddPhotoToGallery = ({ onBackBtnHnd, onSubmitClickHnd })=>{
             id: new Date().toJSON().toString(),
             imageURL:imageURL,
         }
-        let imageList = sessionStorage.getItem("ImageList");
-
-        if (imageList === null  ) {
-            imageList = [];
-        }  else {
-            // Парсим существующий список и проверяем, что это массив
-            try {
-                imageList = JSON.parse(imageList);
-                if (!Array.isArray(imageList)) {
-                    imageList = [];
-                }
-            } catch (e) {
-                imageList = [];
-            }
-        }
-        imageList.push(data);
-        sessionStorage.setItem("ImageList", JSON.stringify(imageList));
         onSubmitClickHnd(data)
         onBackBtnHnd()
     }
@@ -51,7 +34,7 @@ const AddPhotoToGallery = ({ onBackBtnHnd, onSubmitClickHnd })=>{
                 </div>
             <div className="back-add-buttons">
                 <input className="back-btn" type="button" value="Back" onClick={onBackBtnHnd} />
-                <input className="add-btn" type="submit" value="Add Game" />
+                <input className="add-btn" type="submit" value="Add Photo" />
             </div>
         </form>
     </div>

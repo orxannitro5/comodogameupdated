@@ -15,7 +15,7 @@ import AdminPanel from "./adminPanel"
 
 
 
-export default function Header({adminShow}) {
+export default function Header({adminShow,opensLogin}) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const navigate = useNavigate()
     const toggleMenu = () => {
@@ -32,7 +32,7 @@ export default function Header({adminShow}) {
                 <div className="header-main-content">
                     <img onClick={refreshFunc} className="nav-logo" src={comodologo} alt="" />
                     <div className="nav-menu">
-                        <NavLink to="/home" exact activeClassName="active" className="nav-link">HOME</NavLink>
+                        <NavLink to="/" exact activeClassName="active" className="nav-link">HOME</NavLink>
                         <NavLink to="/about" activeClassName="active" className="nav-link">ABOUT</NavLink>
                         <NavLink to="/gallery" activeClassName="active" className="nav-link">GALLERY</NavLink>
                         <NavLink to="/pricing" activeClassName="active" className="nav-link">PRICING</NavLink>
@@ -43,7 +43,7 @@ export default function Header({adminShow}) {
 
                         }
                     </div>
-                    <button className="header-button">JOIN US</button>
+                    <button className="header-button" onClick={opensLogin}>Login</button>
                     <div className="burger-icon" onClick={toggleMenu}>
                         {isMenuOpen ? "X" : '☰'}
                     </div>
@@ -52,7 +52,7 @@ export default function Header({adminShow}) {
             {isMenuOpen && (
                 <div className="burger-menu-block">
                     <div className="burger-menu-block-contaniner">
-                        <NavLink to="/home" exact activeClassName="active" className="burger-menu-block-nav">HOME</NavLink>
+                        <NavLink to="/" exact activeClassName="active" className="burger-menu-block-nav">HOME</NavLink>
                         <NavLink to="/about" activeClassName="active" className="burger-menu-block-nav">ABOUT</NavLink>
                         <NavLink to="/gallery" activeClassName="active" className="burger-menu-block-nav">GALLERY</NavLink>
                         <NavLink to="/pricing" activeClassName="active" className="burger-menu-block-nav">PRICING</NavLink>
@@ -63,9 +63,9 @@ export default function Header({adminShow}) {
                 </div>
             )}
             <Routes>
-                <Route path="/" element={<LoginPage />} />
+                <Route path="/login" element={<LoginPage />} />
                 
-                    <Route path="/home" element={<Home />} />
+                    <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/gallery" element={<Gallery />} />
                     <Route path="/pricing" element={<Pricing />} />

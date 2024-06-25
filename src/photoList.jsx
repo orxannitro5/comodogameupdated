@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react"
 import "./screens-gallery.css";
+import axios from "axios";
 
 
-const PhotoList = ({onEditClickHnd }) => {
+const PhotoList = () => {
     const [imageList,setImageList] = useState([])
     useEffect( ()=>{
-        const storedImageList = sessionStorage.getItem("ImageList");
-        if (storedImageList) {
-            setImageList(JSON.parse(storedImageList));
-        }
+        axios.get("http://localhost:4000/images")
+        .then(response => setImageList(response.data))
+        .catch(error => console.log("Error fetching data"))
     }, []);
 
     

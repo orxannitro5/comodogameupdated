@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "./about-us-block.css";
 import ViewGame from "./viewGame";
-
+import axios from "axios";
 const GameList = ({ list, onEditClickHnd}) => {
     const [gameList, setGameList] = useState([]);
 
     useEffect(() => {
-        const storedGameList = JSON.parse(sessionStorage.getItem("GameList") || "[]");
-        setGameList(storedGameList);
+        axios.get("http://localhost:4000/games")
+            .then(response => {
+                setGameList(response.data);
+            })
+            .catch(error => console.error("Error fetching games:", error));
     }, []);
     
    

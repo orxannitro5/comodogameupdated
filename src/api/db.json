@@ -1,0 +1,24 @@
+{
+  "games": [
+    {
+      "id": "2024-06-25T08:53:57.421Z",
+      "imageURL": "",
+      "text": "asddas"
+    },
+    {
+      "id": "2024-06-25T08:54:21.581Z",
+      "imageURL": "blob:http://localhost:3000/c91b6fa7-123b-4aa0-82b5-a643dc3f9fd4",
+      "text": "vhbjnk"
+    }
+  ],
+  "images": [
+    {
+      "id": "2024-06-25T07:30:33.391Z",
+      "imageURL": "blob:http://localhost:3000/d8fecc56-2e46-4c5d-9d77-9ce67eda1ddf"
+    },
+    {
+      "id": "2024-06-25T08:53:16.867Z",
+      "imageURL": "blob:http://localhost:3000/60b1e19c-4618-4ee4-80f1-c8b0d51d7c46"
+    }
+  ]
+}

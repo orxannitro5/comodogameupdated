@@ -17,23 +17,7 @@ const AddGame = ({ onBackBtnHnd, onSubmitClickHnd }) => {
             imageURL:imageURL,
             text: text
         }
-        let gameList = sessionStorage.getItem("GameList");
 
-        if (gameList === null) {
-            gameList = [];
-        }  else {
-            // Парсим существующий список и проверяем, что это массив
-            try {
-                gameList = JSON.parse(gameList);
-                if (!Array.isArray(gameList)) {
-                    gameList = [];
-                }
-            } catch (e) {
-                gameList = [];
-            }
-        }
-        gameList.push(data);
-        sessionStorage.setItem("GameList", JSON.stringify(gameList));
         onSubmitClickHnd(data)
         onBackBtnHnd()
     }
@@ -45,7 +29,7 @@ const AddGame = ({ onBackBtnHnd, onSubmitClickHnd }) => {
             const url = URL.createObjectURL(file);
             setImageURL(url);
             setFileName(file.name)
-            setFileLabel(" Файл Выбран :  " +fileName)
+            setFileLabel(" Файл Выбран :  "+fileName)
         }
     };
     

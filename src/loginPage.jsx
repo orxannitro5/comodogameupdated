@@ -20,7 +20,7 @@ const LoginPage = () => {
         e.preventDefault();
         if (mail === data.mail && password === data.password) {
             sessionStorage.setItem("isLoggedIn", "true");
-            navigate("/home");  
+            window.location.href = "/"
         } else {
             console.log("Неправильный логин или пароль");
         }
@@ -28,6 +28,7 @@ const LoginPage = () => {
 
     return (
         <div className="login-form-main">
+            <h1>Login Page</h1>
             <form onSubmit={submitFunc} className="login-form">
                 <input className="mail-input" type="email" onChange={mailChangeHnd} placeholder="Email Address" value={mail} />
                 <input className="password-input" type="password" onChange={passwordChangeHnd} placeholder="Password" value={password} />
