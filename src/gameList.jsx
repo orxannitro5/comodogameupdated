@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./about-us-block.css";
-import ViewGame from "./viewGame";
 import axios from "axios";
 const GameList = ({ list, onEditClickHnd}) => {
     const [gameList, setGameList] = useState([]);

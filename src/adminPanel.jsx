@@ -8,8 +8,8 @@ import avatar from "./assets/avatar.png"
 import axios from "axios";
 import sidebaropen from "./assets/sidebar-right.svg"
 import sidebarclose from "./assets/sidebar-left.svg"
-
-
+import AddUser from "./addToSlider"
+import EditUser from "./EditToSlider"
 const AdminPanel = () => {
     const PageEnum = {
         admin: "admin",
@@ -17,14 +17,21 @@ const AdminPanel = () => {
         addphoto: "addphoto",
         editphoto: "editphoto",
         upcominggame: "upcominggame",
-        screengallery: "screengallery"
-    };
+        screengallery: "screengallery",
+        gamepad:"gamepad",
+        adduser:"adduser",
+        edituser:"edituser"
+    }
+
+
     const [showCurrentPage, setShowCurrentPage] = useState(PageEnum.admin);
     const [gameList, setGameList] = useState([]);
     const [dataToEdit, setDataToEdit] = useState({})
     const [imageList, setImageList] = useState([])
     const [photoToEdit, setPhotoToEdit] = useState({})
     const [search,setSearch] = useState("")
+    const [gamepadList,setGamepadList] = useState([])
+    const [userToEdit,setUserToEdit] = useState([])
 
     useEffect(() => {
         axios.get("http://localhost:4000/games")
@@ -40,12 +47,18 @@ const AdminPanel = () => {
         })
         .catch(error => console.log("Error fetching games: ",error  ))
     })
+    useEffect(()=>{
+        axios.get("http://localhost:4000/users")
+        .then(response => {
+            setGamepadList(response.data)
+        })
+        .catch(error => console.log("Error fetching data: ",error))
+    })
     
 
     const openAddForm = () => {
         setShowCurrentPage(PageEnum.addgame);
     };
-
     const openAddPhotoForm = () => {
         setShowCurrentPage(PageEnum.addphoto);
     };
@@ -157,7 +170,44 @@ const AdminPanel = () => {
 
         sidebar.style.display = "flex"
         minisidebar.style.display = "none"
+    }
+    const showGamepad = ()=>{
+        setShowCurrentPage(PageEnum.gamepad)
+    }
+    const openAddUserForm = ()=>{
+        setShowCurrentPage(PageEnum.adduser)
+    }
+    const closeAddUserForm = ()=>{
+        setShowCurrentPage(PageEnum.gamepad)
+    }
+    const submitDataUser = (data)=>{
+        axios.post("http://localhost:4000/users",data)
+        .then(response =>{
+            setGamepadList([...gamepadList, response.data])
+            console.log(response.data);
+        })
+        .catch(error => console.log("Error Fetching data" + error) )
+    }
+    const onDeleteClickHndUser = (data)=>{
+        axios.delete(`http://localhost:4000/users/${data.id}`)
+        .then(()=>{
+            const tempList = gamepadList.filter((e)=> e.id !== data.id)
+            setGamepadList(tempList)
+        })
+        .catch(error => console.error('Error deleting item:', error));
 
+    }
+    const onEditClickHndUser = (data)=>{
+        setShowCurrentPage(PageEnum.edituser)
+        setUserToEdit(data)
+    }
+    const updateUser = (data)=>{
+        axios.put(`http://localhost:4000/users/${data.id}`,data)
+        .then( response => {
+            const updatedUser = gamepadList.map((e) => e.id === data.id ? response.data : e)
+            setGamepadList(updatedUser)
+        })
+        .catch(error => error)
 
     }
     return (
@@ -177,6 +227,8 @@ const AdminPanel = () => {
                     </div>
                     <button className="admin-panel-left-title-game" onClick={showGames}>Upcoming Games</button>
                     <button className="admin-panel-left-title-photo" onClick={showScreen}>Screen Gallery</button>
+                    <button className="admin-panel-left-title-gamepad" onClick={showGamepad}>Gamepad</button>
+
                 </div>
                 <div className="admin-panel-left-smaller">
                     
@@ -188,8 +240,10 @@ const AdminPanel = () => {
                     <div className="admin-panel-left-title-admin">
                         <img  className="avatar" src={avatar} alt="" />
                     </div>
-                    <button className="admin-panel-left-title-game" onClick={showGames}>🎮</button>
+                    <button className="admin-panel-left-title-game" onClick={showGames}>📣</button>
                     <button className="admin-panel-left-title-photo" onClick={showScreen}>🖼️</button>
+                    <button className="admin-panel-left-title-gamepad" onClick={showGamepad}>🎮</button>
+
                 </div>
 
                 <div className="admin-panel">
@@ -261,6 +315,40 @@ const AdminPanel = () => {
                                 </tbody>
                             </table>
                         </div>}
+                    {showCurrentPage === PageEnum.gamepad &&
+                        <div className="gamepad-block">
+                        <h2>Add Info About Users</h2>
+                        <input className="add-game-btn" type="button" value="Add User" onClick={openAddUserForm} />
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Game Id</th>
+                                    <th>User</th>
+                                    <th>Stars</th>
+                                    <th>Location</th>
+                                    <th>Commentary</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {gamepadList.map((users) => (
+                                    <tr key={users.id}>
+                                        <td>{users.id}</td>
+                                        <td>{users.user}</td>
+                                        <td>{users.stars}</td>
+                                        <td>{users.location}</td>
+                                        <td>{users.comment}</td>
+                                        {/* <td><img src={image.imageURL} style={{ width: '100px', height: 'auto' }} /></td> */}
+                                        <td className="remove-edit-button">
+                                            <button className="delete-btn" onClick={() => onDeleteClickHndUser(users)}>x</button>
+                                            <button className="edit-btn" onClick={() => onEditClickHndUser(users)}>Edit</button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    }    
                     {showCurrentPage === PageEnum.addgame && (
                         <AddGame onBackBtnHnd={closeAddGameForm} onSubmitClickHnd={submitData} />
                     )}
@@ -272,6 +360,12 @@ const AdminPanel = () => {
                     )}
                     {showCurrentPage === PageEnum.editphoto &&
                         <EditPhoto onBackBtnHnd={closeAddPhotoForm} data={photoToEdit} onUpdateClickHnd={updatePhoto} />
+                    }
+                    {showCurrentPage === PageEnum.adduser &&
+                        <AddUser onBackBtnHnd={closeAddUserForm} onSubmitClickHnd={submitDataUser} />
+                    }
+                    {showCurrentPage === PageEnum.edituser &&
+                        <EditUser onBackBtnHnd={closeAddUserForm} data={userToEdit} onUpdateClickHnd={updateUser}/>
                     }
 
 
