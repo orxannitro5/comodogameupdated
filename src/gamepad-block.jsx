@@ -28,7 +28,6 @@ export default function Gamepad() {
             secondText: "Incredible game, pure joy.",
             
         }
-        // Добавьте другие элементы массива по аналогии с примером выше
     ];
 
     const SimpleSlider = () => {

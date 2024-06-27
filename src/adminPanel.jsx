@@ -6,6 +6,9 @@ import EditGame from "./editGame";
 import EditPhoto from "./editPhoto";
 import avatar from "./assets/avatar.png"
 import axios from "axios";
+import sidebaropen from "./assets/sidebar-right.svg"
+import sidebarclose from "./assets/sidebar-left.svg"
+
 
 const AdminPanel = () => {
     const PageEnum = {
@@ -37,14 +40,7 @@ const AdminPanel = () => {
         })
         .catch(error => console.log("Error fetching games: ",error  ))
     })
-    // useEffect(() => {
-    //     const storedGameList = JSON.parse(sessionStorage.getItem("GameList") || "[]");
-    //     setGameList(storedGameList);
-    // }, []);
-    // useEffect(() => {
-    //     const storedImageList = JSON.parse(sessionStorage.getItem("ImageList") || "[]")
-    //     setImageList(storedImageList)
-    // }, [])
+    
 
     const openAddForm = () => {
         setShowCurrentPage(PageEnum.addgame);
@@ -114,13 +110,7 @@ const AdminPanel = () => {
         setPhotoToEdit(data)
     }
     const updatePhoto = (data) => {
-        // console.log(imageList);
-        // const filteredData = imageList.filter(x => x.id === data.id)[0]
-        // const indexOfRecord = imageList.indexOf(filteredData)
-        // const tempData = imageList]
-        // tempData[indexOfRecord] = data
-        // sessionStorage.setItem('ImageList', JSON.stringify(tempData))
-        // setImageList(tempData)
+        
         axios.put(`http://localhost:4000/images/${data.id}`,data)
         .then(response =>{
             const updatedItems = imageList.map((item)=> item.id === data.id ? response.data : item)
@@ -147,17 +137,61 @@ const AdminPanel = () => {
     const backToHome = () => {
         window.location.href = "http://localhost:3000"
     }
+    const hideSidebar = ()=>{
+        let sidebar = document.querySelector(".admin-panel-left")
+        let opensidebar = document.querySelector(".open-sidebar")
+        let minisidebar = document.querySelector(".admin-panel-left-smaller")
+        sidebar.style.display = "none"
+        minisidebar.style.display = "flex"
+    }
+    const openSidebar = ()=>{
+        let sidebar = document.querySelector(".admin-panel-left")
+        let opensidebar = document.querySelector(".open-sidebar")
+        sidebar.style.display = "flex"
+        opensidebar.style.display = "none"
+
+    }
+    const showFullSidebar = ()=>{
+        let sidebar = document.querySelector(".admin-panel-left")
+        let minisidebar = document.querySelector(".admin-panel-left-smaller")
+
+        sidebar.style.display = "flex"
+        minisidebar.style.display = "none"
+
+
+    }
     return (
         <div >
             <div className="admin-panel-main">
                 <div className="admin-panel-left">
+                    
+                    <div className="a">  
+                    <div className="nav-to-home" onClick={backToHome}>🏠</div>
+                    <img class="hide-sidebar" onClick={hideSidebar} src={sidebarclose} alt="" />
+                    </div>
+
                     <div className="admin-panel-left-title-admin">
-                        <img onClick={backToHome} className="avatar" src={avatar} alt="" />
+                        <img  className="avatar" src={avatar} alt="" />
                         <p>Orxan Ahmedov</p>
+
                     </div>
                     <button className="admin-panel-left-title-game" onClick={showGames}>Upcoming Games</button>
                     <button className="admin-panel-left-title-photo" onClick={showScreen}>Screen Gallery</button>
                 </div>
+                <div className="admin-panel-left-smaller">
+                    
+                    <div className="a">  
+                    <div className="nav-to-home" onClick={backToHome}>🏠</div>
+                    <img class="hide-sidebar" onClick={showFullSidebar} src={sidebaropen} alt="" />
+                    </div>
+
+                    <div className="admin-panel-left-title-admin">
+                        <img  className="avatar" src={avatar} alt="" />
+                    </div>
+                    <button className="admin-panel-left-title-game" onClick={showGames}>🎮</button>
+                    <button className="admin-panel-left-title-photo" onClick={showScreen}>🖼️</button>
+                </div>
+
                 <div className="admin-panel">
                     {showCurrentPage === PageEnum.admin && (
                         <div>
@@ -165,6 +199,8 @@ const AdminPanel = () => {
                             <p>Please select an option from the left menu.</p>
                         </div>
                     )}
+                    <button className="open-sidebar" onClick={openSidebar}>Open the menu</button>
+                    
                     {showCurrentPage === PageEnum.upcominggame &&
                         (<div className="upcoming-game">
                             <h2>Add Upcoming Game</h2>

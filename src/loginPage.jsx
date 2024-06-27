@@ -22,7 +22,8 @@ const LoginPage = () => {
             sessionStorage.setItem("isLoggedIn", "true");
             window.location.href = "/"
         } else {
-            console.log("Неправильный логин или пароль");
+            let ifFalse = document.querySelector(".false-data")
+            ifFalse.style.display = "block"
         }
     };
 
@@ -32,6 +33,7 @@ const LoginPage = () => {
             <form onSubmit={submitFunc} className="login-form">
                 <input className="mail-input" type="email" onChange={mailChangeHnd} placeholder="Email Address" value={mail} />
                 <input className="password-input" type="password" onChange={passwordChangeHnd} placeholder="Password" value={password} />
+                <div className="false-data">Неправильный логин или пароль</div>
                 <div className="checkbox-block">
                     <input type="checkbox" />
                     <label>Remember me</label>
