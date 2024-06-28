@@ -17,10 +17,14 @@ const EditPhoto = ({onBackBtnHnd,onUpdateClickHnd,data}) => {
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         if (file) {
-            const url = URL.createObjectURL(file);
-            setImageURL(url);
-            setFileName(file.name)
-            setFileLabel(" Файл Выбран :  " +file.name)
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const url = event.target.result;
+                setImageURL(url);
+                setFileName(file.name);
+                setFileLabel("Файл Выбран: " + file.name);
+            };
+            reader.readAsDataURL(file);
         }
     };
     return (

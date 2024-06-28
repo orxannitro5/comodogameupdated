@@ -12,6 +12,8 @@ import AddUser from "./addToSlider"
 import EditUser from "./EditToSlider"
 import AddPlan from "./addPlan";
 import EditPlan from "./editPlan";
+import AddBlog from "./addBlog";
+import EditBlog from "./editBlog";
 const AdminPanel = () => {
     const PageEnum = {
         admin: "admin",
@@ -25,7 +27,10 @@ const AdminPanel = () => {
         edituser:"edituser",
         plans:"plans",
         addplan:"addplan",
-        editplan:"editplan"
+        editplan:"editplan",
+        blog:"blog",
+        addblog:"addblog",
+        editblog:'editblog'
     }
 
 
@@ -39,6 +44,8 @@ const AdminPanel = () => {
     const [userToEdit,setUserToEdit] = useState([])
     const [planList,setPlanList] = useState([])
     const [planToEdit,setPlanToEdit] = useState({})
+    const [blogList,setBlogList] = useState([])
+    const [blogToEdit,setBlogToEdit] = useState({})
 
 
     useEffect(() => {
@@ -69,7 +76,11 @@ const AdminPanel = () => {
         })
         .catch(error=>error)
     },[])
-    
+    useEffect(()=>{
+        axios.get(`http://localhost:4000/blogs`)
+        .then(response => setBlogList(response.data))
+        .catch(error => error)
+    },[])
 
     const openAddForm = () => {
         setShowCurrentPage(PageEnum.addgame);
@@ -155,11 +166,15 @@ const AdminPanel = () => {
         let screengallery = document.querySelector(".admin-panel-left-title-photo")
         let gamepad = document.querySelector(".admin-panel-left-title-gamepad")
         let plan = document.querySelector(".admin-panel-left-title-plan")
+        let blog = document.querySelector(".admin-panel-left-title-blog")
+
 
         upcominggame.style.backgroundColor = "#1c0b8d"
         screengallery.style.backgroundColor = "#2c2172"
         gamepad.style.backgroundColor = "#2c2172"
         plan.style.backgroundColor = "#2c2172"
+        blog.style.backgroundColor = "#2c2172"
+
 
     }
     else if (showCurrentPage === PageEnum.screengallery) {
@@ -167,30 +182,52 @@ const AdminPanel = () => {
         let screengallery = document.querySelector(".admin-panel-left-title-photo")
         let gamepad = document.querySelector(".admin-panel-left-title-gamepad")
         let plan = document.querySelector(".admin-panel-left-title-plan")
+        let blog = document.querySelector(".admin-panel-left-title-blog")
+
         upcominggame.style.backgroundColor = "#2c2172"
         screengallery.style.backgroundColor = "#1c0b8d"
         gamepad.style.backgroundColor = "#2c2172"
         plan.style.backgroundColor = "#2c2172"
+        blog.style.backgroundColor = "#2c2172"
+
     }
     else if (showCurrentPage === PageEnum.gamepad) {
         let upcominggame = document.querySelector(".admin-panel-left-title-game")
         let screengallery = document.querySelector(".admin-panel-left-title-photo")
         let gamepad = document.querySelector(".admin-panel-left-title-gamepad")
         let plan = document.querySelector(".admin-panel-left-title-plan")
+        let blog = document.querySelector(".admin-panel-left-title-blog")
+
         upcominggame.style.backgroundColor = "#2c2172"
         screengallery.style.backgroundColor = "#2c2172"
         gamepad.style.backgroundColor = "#1c0b8d"
         plan.style.backgroundColor = "#2c2172"
+        blog.style.backgroundColor = "#2c2172"
+
     }
     else if (showCurrentPage === PageEnum.plans) {
         let upcominggame = document.querySelector(".admin-panel-left-title-game")
         let screengallery = document.querySelector(".admin-panel-left-title-photo")
         let gamepad = document.querySelector(".admin-panel-left-title-gamepad")
         let plan = document.querySelector(".admin-panel-left-title-plan")
+        let blog = document.querySelector(".admin-panel-left-title-blog")
         upcominggame.style.backgroundColor = "#2c2172"
         screengallery.style.backgroundColor = "#2c2172"
         gamepad.style.backgroundColor = "#2c2172"
         plan.style.backgroundColor = "#1c0b8d"
+        blog.style.backgroundColor = "#2c2172"
+    }
+    else if (showCurrentPage === PageEnum.blog) {
+        let upcominggame = document.querySelector(".admin-panel-left-title-game")
+        let screengallery = document.querySelector(".admin-panel-left-title-photo")
+        let gamepad = document.querySelector(".admin-panel-left-title-gamepad")
+        let plan = document.querySelector(".admin-panel-left-title-plan")
+        let blog = document.querySelector(".admin-panel-left-title-blog")
+        upcominggame.style.backgroundColor = "#2c2172"
+        screengallery.style.backgroundColor = "#2c2172"
+        gamepad.style.backgroundColor = "#2c2172"
+        plan.style.backgroundColor = "#2c2172"
+        blog.style.backgroundColor = "#1c0b8d"
     }
     const backToHome = () => {
         window.location.href = "http://localhost:3000"
@@ -291,6 +328,44 @@ const AdminPanel = () => {
         })
         .catch(error => error)
     }
+    const showBlogs = ()=>{
+        setShowCurrentPage(PageEnum.blog)
+    }
+    const openAddBlogForm = ()=>{
+        setShowCurrentPage(PageEnum.addblog)
+    }
+    const closeAddBlogForm = ()=>{
+        setShowCurrentPage(PageEnum.blog)
+    }
+    const submitDataBlog = (data)=>{
+        axios.post(`http://localhost:4000/blogs`,data)
+        .then((response)=>{
+            setBlogList([...blogList,response.data])
+        })
+        .catch(error=>error)
+    }
+    const onDeleteClickHndBlog = (data)=>{
+        axios.delete(`http://localhost:4000/blogs/${data.id}`)
+        .then(() =>{
+            let tempList = blogList.filter((e) => e.id !== data.id)
+            setBlogList(tempList)
+        })
+        .catch(error => error)
+    }
+    const onEditClickHndBlog = (data)=>{
+        setShowCurrentPage(PageEnum.editblog)
+        setBlogToEdit(data)
+    }
+    const updateBlog = (data)=>{
+        axios.put(`http://localhost:4000/blogs/${data.id}`,data)
+        .then(response =>{
+            let updatedList = blogList.map((e) => e.id === data.id ? response.data : e)
+            setBlogList(updatedList)
+            console.log(updatedList);
+
+        })
+        .catch(error=> console.log(error))
+    }
     return (
         <div >
             <div className="admin-panel-main">
@@ -310,6 +385,8 @@ const AdminPanel = () => {
                     <button className="admin-panel-left-title-photo" onClick={showScreen}>Screen Gallery</button>
                     <button className="admin-panel-left-title-gamepad" onClick={showGamepad}>Gamepad</button>
                     <button className="admin-panel-left-title-plan" onClick={showPlans}>Pricing Plans</button>
+                    <button className="admin-panel-left-title-blog" onClick={showBlogs}>Blogs</button>
+
 
                 </div>
                 <div className="admin-panel-left-smaller">
@@ -326,6 +403,8 @@ const AdminPanel = () => {
                     <button className="admin-panel-left-title-photo" onClick={showScreen}>🖼️</button>
                     <button className="admin-panel-left-title-gamepad" onClick={showGamepad}>🎮</button>
                     <button className="admin-panel-left-title-plan" onClick={showPlans}>💰</button>
+                    <button className="admin-panel-left-title-blog" onClick={showBlogs}>📓</button>
+
 
 
                 </div>
@@ -462,7 +541,44 @@ const AdminPanel = () => {
                             </tbody>
                         </table>
                     </div>
-                    }    
+                    }   
+                    {showCurrentPage === PageEnum.blog &&
+                        <div className="admin-panel-latest-blog">
+                        <h2>Add Latest Blog Posts</h2>
+                        <input className="add-game-btn" type="button" value="Add Blog" onClick={openAddBlogForm} />
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Cover Of Blog</th>
+                                    <th>Title Of Blog</th>
+                                    <th>Content</th>
+                                    <th>Date Of Publication</th>
+                                    <th>Likes</th>
+                                    <th>Comments</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {blogList.map((blog) => (
+                                    <tr key={blog.id}>
+                                        <td><img src={blog.imageURL} alt="" /></td>
+                                        <td>{blog.title}</td>
+                                        <td>{blog.text}</td>
+                                        <td>{blog.date}</td>
+                                        <td>{blog.likes}</td>
+                                        <td>{blog.commentary}</td>
+
+                                        <td className="remove-edit-button">
+                                            <button className="delete-btn" onClick={() => onDeleteClickHndBlog(blog)}>x</button>
+                                            <button className="edit-btn" onClick={() => onEditClickHndBlog(blog)}>Edit</button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    } 
+
                     {showCurrentPage === PageEnum.addgame && (
                         <AddGame onBackBtnHnd={closeAddGameForm} onSubmitClickHnd={submitData} />
                     )}
@@ -487,7 +603,12 @@ const AdminPanel = () => {
                     {showCurrentPage === PageEnum.editplan &&
                         <EditPlan onBackBtnHnd={closeAddPlanForm} data={planToEdit} onUpdateClickHnd={updatePlan}/>
                     }
-
+                    {showCurrentPage === PageEnum.addblog &&
+                        <AddBlog  onBackBtnHnd={closeAddBlogForm} onSubmitClickHnd={submitDataBlog} />
+                    }
+                    {showCurrentPage === PageEnum.editblog &&
+                        <EditBlog onBackBtnHnd={closeAddBlogForm} data={blogToEdit} onUpdateClickHnd={updateBlog} />
+                    }
 
                 </div>
             </div>

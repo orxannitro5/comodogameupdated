@@ -5,6 +5,7 @@ const EditGame = ({onBackBtnHnd,onUpdateClickHnd,data})=>{
     const [text,setText] =useState(data.text)
     const [imageURL, setImageURL] = useState(data.imageURL);
     const [fileLabel, setFileLabel] = useState("(Выберите Файл)")
+    const [fileName, setFileName] = useState("")
 
     const onTextChangeHnd = (e)=>{
         setText(e.target.value)
@@ -22,9 +23,14 @@ const EditGame = ({onBackBtnHnd,onUpdateClickHnd,data})=>{
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         if (file) {
-            const url = URL.createObjectURL(file);
-            setImageURL(url);
-            setFileLabel("(Файл Выбран)")
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const url = event.target.result;
+                setImageURL(url);
+                setFileName(file.name);
+                setFileLabel("Файл Выбран: " + file.name);
+            };
+            reader.readAsDataURL(file);
         }
     };
     

@@ -1,5 +1,5 @@
 import "./home.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import americanfootballlarge from "./assets/recent_up.png.webp";
 
 import WatchVideoBlock from "./watch-video-block";
@@ -15,11 +15,13 @@ import NewsLetter from "./newsletter";
 import LiveStreaming from "./liveStreaming";
 import RecentGames from "./recentGames";
 import UpcomingGames from "./upcomingGames";
+import axios from "axios";
 
 
 
 export default function Home() {
     const [shownPage, setShownPage] = useState("main")
+    const [blogList, setBlogList] = useState([])
     const PageEnum = {
         live: "live",
         upcoming: "upcoming",
@@ -71,7 +73,7 @@ export default function Home() {
     const showRecentSection = () => {
         setShownPage(PageEnum.learnMore3)
     }
-    const turnBack = ()=>{
+    const turnBack = () => {
         setShownPage(PageEnum.main)
         const liveButton = document.getElementById("liveButton");
         const upcomingButton = document.getElementById("upcomingButton");
@@ -85,6 +87,11 @@ export default function Home() {
         recentButton.style.color = "white";
 
     }
+    useEffect(() => {
+        axios.get(`http://localhost:4000/blogs`)
+            .then(response => setBlogList(response.data))
+            .catch(error => error)
+    }, [])
     return (
         <div className="home-main">
             {(shownPage === PageEnum.main || shownPage === PageEnum.live || shownPage === PageEnum.upcoming || shownPage === PageEnum.recent) && <div className="home-main-content">
@@ -112,7 +119,7 @@ export default function Home() {
                         <div className="home-section-fourth-block-bottom-side">
                             <img className="home-section-fourth-block-bottom-side-image" src={americanfootballlarge} alt="" />
                             <div className="home-section-fourth-block-bottom-side-right">
-                            <h2 className="exit-button" onClick={turnBack}>x</h2>
+                                <h2 className="exit-button" onClick={turnBack}>x</h2>
 
                                 <p className="home-section-fourth-block-bottom-side-right-info">Upcoming Challenge <br />________</p>
                                 <h2 className="home-section-fourth-block-bottom-side-right-title ">Exciting New Releases from ComodoGame: Get Ready for Epic Adventures!                    </h2>
@@ -127,7 +134,7 @@ export default function Home() {
                         <div className="home-section-fourth-block-bottom-side">
                             <img className="home-section-fourth-block-bottom-side-image" src={americanfootballlarge} alt="" />
                             <div className="home-section-fourth-block-bottom-side-right">
-                            <h2 className="exit-button" onClick={turnBack}>x</h2>
+                                <h2 className="exit-button" onClick={turnBack}>x</h2>
 
                                 <p className="home-section-fourth-block-bottom-side-right-info">Recent Famous Games <br />________</p>
                                 <h2 className="home-section-fourth-block-bottom-side-right-title ">Recent Famous Games from ComodoGame: Unforgettable Adventures and Epic Battles</h2>
@@ -149,48 +156,20 @@ export default function Home() {
                         <h1 className="home-section-latest-blog-high-opacity-title">Latest Blog Posts</h1>
                     </div>
                     <div className="home-section-latest-blog-posts-main-content">
-                        <div className="home-section-blog">
-                            <img className="home-section-blog-image" src={LatestBlogPostsFirstImage} alt="" />
-                            <div className="home-section-blog-content">
-                                <h4 className="home-section-blog-content-title">Portable Fashion for women</h4>
-                                <p className="home-section-blog-content-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.</p>
-                                <div className="home-section-blog-content-info">
-                                    <div>📅 13th Dec</div>
-                                    <div>🤍 15</div>
-                                    <div>💬 05</div>
+                        {blogList.map((blog) => (
+                            <div className="home-section-blog" key={blog.id}>
+                                <img className="home-section-blog-image" src={blog.imageURL} alt="" />
+                                <div className="home-section-blog-content">
+                                    <h4 className="home-section-blog-content-title">{blog.title}</h4>
+                                    <p className="home-section-blog-content-text">{blog.text}</p>
+                                    <div className="home-section-blog-content-info">
+                                        <div>📅 {blog.date}</div>
+                                        <div>🤍 {blog.likes}</div>
+                                        <div>💬 {blog.commentary}</div>
+                                    </div>
                                 </div>
-
                             </div>
-                        </div>
-                        <div className="home-section-blog">
-                            <img className="home-section-blog-image" src={LatestBlogPostsSecondImage} alt="" />
-                            <div className="home-section-blog-content">
-                                <h4 className="home-section-blog-content-title">Portable Fashion for women</h4>
-                                <p className="home-section-blog-content-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.</p>
-                                <div className="home-section-blog-content-info">
-                                    <div>📅 31th Dec</div>
-                                    <div>🤍 12</div>
-                                    <div>💬 95</div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div className="home-section-blog home-section-blog-deleted">
-                            <img className="home-section-blog-image" src={LatestBlogPostsThirdImage} alt="" />
-                            <div className="home-section-blog-content">
-                                <h4 className="home-section-blog-content-title">Portable Fashion for women</h4>
-                                <p className="home-section-blog-content-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.</p>
-                                <div className="home-section-blog-content-info">
-                                    <div>📅 13th Jan</div>
-                                    <div>🤍 5</div>
-                                    <div>💬 08</div>
-                                </div>
-
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
                 <NewsLetter />
