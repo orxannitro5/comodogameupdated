@@ -49,14 +49,14 @@ table {
 
   
 }
-.admin-panel-left-title-game,.admin-panel-left-title-photo,.admin-panel-left-title-admin,.admin-panel-left-title-gamepad{
+.admin-panel-left-title-game,.admin-panel-left-title-photo,.admin-panel-left-title-admin,.admin-panel-left-title-gamepad,.admin-panel-left-title-plan{
   margin: 10px 0px ;
   display: flex;
   justify-content: center;
   align-items: center;
   
 }
-.admin-panel-left-title-game,.admin-panel-left-title-photo,.admin-panel-left-title-gamepad{
+.admin-panel-left-title-game,.admin-panel-left-title-photo,.admin-panel-left-title-gamepad,.admin-panel-left-title-plan{
   width: 80%;
   height: 40px;
   border-radius: 10px;

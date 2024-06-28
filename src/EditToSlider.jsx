@@ -36,7 +36,7 @@ const EditToSlider = ({ onBackBtnHnd,onUpdateClickHnd,data})=>{
 
                 <div className="add-game-input">
                     <label >Name of user : </label>
-                    <input onChange={onUserChangeHnd} value={data.user} type="text" />
+                    <input onChange={onUserChangeHnd} value={user} type="text" />
                 </div>
                 <div className="add-game-input">
                     <label >How many stars?</label>

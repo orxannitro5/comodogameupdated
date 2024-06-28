@@ -10,10 +10,9 @@
     align-items: center;
     padding: 50px 0px;
 }
-h1{
+.login-title{
   margin: 20px 0px;
 }
-/* loginPage.css */
 .login-page {
     display: flex;
     justify-content: center;

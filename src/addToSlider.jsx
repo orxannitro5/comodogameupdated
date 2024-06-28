@@ -52,7 +52,7 @@ const AddToSlider = ({ onBackBtnHnd, onSubmitClickHnd})=>{
                 </div>
                 <div className="back-add-buttons">
                     <input className="back-btn" type="button" value="Back" onClick={onBackBtnHnd} />
-                    <input className="add-btn" type="submit" value="Add Game" />
+                    <input className="add-btn" type="submit" value="Add User" />
                 </div>
             </form>
         </div>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React,{ useState, useEffect } from "react";
 import AddGame from "./addGame";
 import AddPhoto from "./addPhotoToGallery";
 import "./adminPanel.css";
@@ -10,6 +10,8 @@ import sidebaropen from "./assets/sidebar-right.svg"
 import sidebarclose from "./assets/sidebar-left.svg"
 import AddUser from "./addToSlider"
 import EditUser from "./EditToSlider"
+import AddPlan from "./addPlan";
+import EditPlan from "./editPlan";
 const AdminPanel = () => {
     const PageEnum = {
         admin: "admin",
@@ -20,7 +22,10 @@ const AdminPanel = () => {
         screengallery: "screengallery",
         gamepad:"gamepad",
         adduser:"adduser",
-        edituser:"edituser"
+        edituser:"edituser",
+        plans:"plans",
+        addplan:"addplan",
+        editplan:"editplan"
     }
 
 
@@ -32,6 +37,9 @@ const AdminPanel = () => {
     const [search,setSearch] = useState("")
     const [gamepadList,setGamepadList] = useState([])
     const [userToEdit,setUserToEdit] = useState([])
+    const [planList,setPlanList] = useState([])
+    const [planToEdit,setPlanToEdit] = useState({})
+
 
     useEffect(() => {
         axios.get("http://localhost:4000/games")
@@ -46,14 +54,21 @@ const AdminPanel = () => {
             setImageList(response.data)
         })
         .catch(error => console.log("Error fetching games: ",error  ))
-    })
+    },[])
     useEffect(()=>{
         axios.get("http://localhost:4000/users")
         .then(response => {
             setGamepadList(response.data)
         })
         .catch(error => console.log("Error fetching data: ",error))
-    })
+    },[])
+    useEffect(()=>{
+        axios.get("http://localhost:4000/plans")
+        .then(response => {
+            setPlanList(response.data)
+        })
+        .catch(error=>error)
+    },[])
     
 
     const openAddForm = () => {
@@ -138,14 +153,44 @@ const AdminPanel = () => {
     if (showCurrentPage === PageEnum.upcominggame) {
         let upcominggame = document.querySelector(".admin-panel-left-title-game")
         let screengallery = document.querySelector(".admin-panel-left-title-photo")
+        let gamepad = document.querySelector(".admin-panel-left-title-gamepad")
+        let plan = document.querySelector(".admin-panel-left-title-plan")
+
         upcominggame.style.backgroundColor = "#1c0b8d"
         screengallery.style.backgroundColor = "#2c2172"
+        gamepad.style.backgroundColor = "#2c2172"
+        plan.style.backgroundColor = "#2c2172"
+
     }
     else if (showCurrentPage === PageEnum.screengallery) {
         let upcominggame = document.querySelector(".admin-panel-left-title-game")
         let screengallery = document.querySelector(".admin-panel-left-title-photo")
+        let gamepad = document.querySelector(".admin-panel-left-title-gamepad")
+        let plan = document.querySelector(".admin-panel-left-title-plan")
         upcominggame.style.backgroundColor = "#2c2172"
         screengallery.style.backgroundColor = "#1c0b8d"
+        gamepad.style.backgroundColor = "#2c2172"
+        plan.style.backgroundColor = "#2c2172"
+    }
+    else if (showCurrentPage === PageEnum.gamepad) {
+        let upcominggame = document.querySelector(".admin-panel-left-title-game")
+        let screengallery = document.querySelector(".admin-panel-left-title-photo")
+        let gamepad = document.querySelector(".admin-panel-left-title-gamepad")
+        let plan = document.querySelector(".admin-panel-left-title-plan")
+        upcominggame.style.backgroundColor = "#2c2172"
+        screengallery.style.backgroundColor = "#2c2172"
+        gamepad.style.backgroundColor = "#1c0b8d"
+        plan.style.backgroundColor = "#2c2172"
+    }
+    else if (showCurrentPage === PageEnum.plans) {
+        let upcominggame = document.querySelector(".admin-panel-left-title-game")
+        let screengallery = document.querySelector(".admin-panel-left-title-photo")
+        let gamepad = document.querySelector(".admin-panel-left-title-gamepad")
+        let plan = document.querySelector(".admin-panel-left-title-plan")
+        upcominggame.style.backgroundColor = "#2c2172"
+        screengallery.style.backgroundColor = "#2c2172"
+        gamepad.style.backgroundColor = "#2c2172"
+        plan.style.backgroundColor = "#1c0b8d"
     }
     const backToHome = () => {
         window.location.href = "http://localhost:3000"
@@ -208,7 +253,43 @@ const AdminPanel = () => {
             setGamepadList(updatedUser)
         })
         .catch(error => error)
-
+    }
+    const showPlans = ()=>{
+        setShowCurrentPage(PageEnum.plans)
+    }
+    const openAddPlanForm = ()=>{
+        setShowCurrentPage(PageEnum.addplan)
+    }
+    const closeAddPlanForm = ()=>{
+        setShowCurrentPage(PageEnum.plans)
+    }
+    const submitDataPlan = (data)=>{
+        axios.post(`http://localhost:4000/plans`,data)
+        .then(response => {
+            setPlanList([...planList,response.data])
+        })
+        .catch(error => error)
+    }
+    const onDeleteClickHndPlan = (data)=>{
+        axios.delete(`http://localhost:4000/plans/${data.id}`)
+        .then(() => {
+            let tempList = planList.filter((e)=> e.id !== data.id)
+            setPlanList(tempList)
+        }  
+        )
+        .catch(error => error)
+    }
+    const onEditClickHndPlan = (data)=>{
+        setShowCurrentPage(PageEnum.editplan)
+        setPlanToEdit(data)
+    }
+    const updatePlan = (data)=>{
+        axios.put(`http://localhost:4000/plans/${data.id}`,data)
+        .then( response => {
+            const updatedplan = planList.map((e) => e.id === data.id ? response.data : e)
+            setPlanList(updatedplan)
+        })
+        .catch(error => error)
     }
     return (
         <div >
@@ -228,6 +309,7 @@ const AdminPanel = () => {
                     <button className="admin-panel-left-title-game" onClick={showGames}>Upcoming Games</button>
                     <button className="admin-panel-left-title-photo" onClick={showScreen}>Screen Gallery</button>
                     <button className="admin-panel-left-title-gamepad" onClick={showGamepad}>Gamepad</button>
+                    <button className="admin-panel-left-title-plan" onClick={showPlans}>Pricing Plans</button>
 
                 </div>
                 <div className="admin-panel-left-smaller">
@@ -243,6 +325,8 @@ const AdminPanel = () => {
                     <button className="admin-panel-left-title-game" onClick={showGames}>📣</button>
                     <button className="admin-panel-left-title-photo" onClick={showScreen}>🖼️</button>
                     <button className="admin-panel-left-title-gamepad" onClick={showGamepad}>🎮</button>
+                    <button className="admin-panel-left-title-plan" onClick={showPlans}>💰</button>
+
 
                 </div>
 
@@ -264,7 +348,6 @@ const AdminPanel = () => {
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>Game Id</th>
                                         <th>Game Background Photo</th>
                                         <th>Game Name</th>
                                         <th>Actions</th>
@@ -277,7 +360,6 @@ const AdminPanel = () => {
                                         : game.text.toLowerCase().includes(search.toLowerCase()); })
                                         .map((game) => (
                                         <tr key={game.id}>
-                                            <td>{game.id}</td>
                                             <td><img src={game.imageURL} style={{ width: '100px', height: 'auto' }} /></td>
                                             <td>{game.text}</td>
                                             <td className="remove-edit-button">
@@ -322,7 +404,6 @@ const AdminPanel = () => {
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Game Id</th>
                                     <th>User</th>
                                     <th>Stars</th>
                                     <th>Location</th>
@@ -333,7 +414,6 @@ const AdminPanel = () => {
                             <tbody>
                                 {gamepadList.map((users) => (
                                     <tr key={users.id}>
-                                        <td>{users.id}</td>
                                         <td>{users.user}</td>
                                         <td>{users.stars}</td>
                                         <td>{users.location}</td>
@@ -342,6 +422,40 @@ const AdminPanel = () => {
                                         <td className="remove-edit-button">
                                             <button className="delete-btn" onClick={() => onDeleteClickHndUser(users)}>x</button>
                                             <button className="edit-btn" onClick={() => onEditClickHndUser(users)}>Edit</button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    }
+                    {showCurrentPage === PageEnum.plans &&
+                        <div className="pricing-plans">
+                        <h2>Add Pricing Plans</h2>
+                        <input className="add-game-btn" type="button" value="Add Plan" onClick={openAddPlanForm} />
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Package Name</th>
+                                    <th>Price</th>
+                                    <th>Game 1</th>
+                                    <th>Game 2</th>
+                                    <th>Game 3</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {planList.map((plan) => (
+                                    <tr key={plan.id}>
+                                        <td>{plan.name}</td>
+                                        <td>{plan.price}</td>
+                                        <td>{plan.game1}</td>
+                                        <td>{plan.game2}</td>
+                                        <td>{plan.game3}</td>
+                                        {/* <td><img src={image.imageURL} style={{ width: '100px', height: 'auto' }} /></td> */}
+                                        <td className="remove-edit-button">
+                                            <button className="delete-btn" onClick={() => onDeleteClickHndPlan(plan)}>x</button>
+                                            <button className="edit-btn" onClick={() => onEditClickHndPlan(plan)}>Edit</button>
                                         </td>
                                     </tr>
                                 ))}
@@ -366,6 +480,12 @@ const AdminPanel = () => {
                     }
                     {showCurrentPage === PageEnum.edituser &&
                         <EditUser onBackBtnHnd={closeAddUserForm} data={userToEdit} onUpdateClickHnd={updateUser}/>
+                    }
+                    {showCurrentPage === PageEnum.addplan &&
+                        <AddPlan onBackBtnHnd={closeAddPlanForm} onSubmitClickHnd={submitDataPlan}  />
+                    }
+                    {showCurrentPage === PageEnum.editplan &&
+                        <EditPlan onBackBtnHnd={closeAddPlanForm} data={planToEdit} onUpdateClickHnd={updatePlan}/>
                     }
 
 

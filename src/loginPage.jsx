@@ -29,7 +29,7 @@ const LoginPage = () => {
 
     return (
         <div className="login-form-main">
-            <h1>Login Page</h1>
+            <h1 className="login-title">Login Page</h1>
             <form onSubmit={submitFunc} className="login-form">
                 <input className="mail-input" type="email" onChange={mailChangeHnd} placeholder="Email Address" value={mail} />
                 <input className="password-input" type="password" onChange={passwordChangeHnd} placeholder="Password" value={password} />
