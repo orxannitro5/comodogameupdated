@@ -178,6 +178,14 @@
     margin:30px 0px ;
     font-size: 14px;
 }
+.home-section-blog-image{
+    width: 360px ;
+    height: 220px;
+}
+.like-btn{
+    background-color: #3d3287;
+    border: 0px;
+}
 @media (max-width:1140px){
     .home-section-fourth-block-bottom-side-image{
         display: none;

@@ -22,6 +22,8 @@ import axios from "axios";
 export default function Home() {
     const [shownPage, setShownPage] = useState("main")
     const [blogList, setBlogList] = useState([])
+    const [likedIndexes, setLikedIndexes] = useState([]);
+
     const PageEnum = {
         live: "live",
         upcoming: "upcoming",
@@ -92,6 +94,33 @@ export default function Home() {
             .then(response => setBlogList(response.data))
             .catch(error => error)
     }, [])
+    const onLikeChangeHnd = (index, blog) => {
+        if (likedIndexes.includes(index)) {
+            console.log("hi");
+            return; 
+        }
+
+        let newBlogList = [...blogList];
+        newBlogList[index].likes = (parseInt(newBlogList[index].likes, 10) + 1).toString();
+
+        axios.put(`http://localhost:4000/blogs/${blog.id}`, { ...blog, likes: newBlogList[index].likes })
+            .then(() => {
+                setBlogList(newBlogList);
+                setLikedIndexes([...likedIndexes, index]);
+            })
+            .catch(err => {
+                console.error('Error updating blog:', err);
+            });
+    };
+    const textLength = (blog,index)=>{
+        let text = document.querySelectorAll(".home-section-blog-content-text")
+        let val = text[blog].textContent.length
+        if(val > 280){
+            text[blog].textContent = text[blog].textContent.substring(0, 300) + "..."
+        }
+    }
+    
+
     return (
         <div className="home-main">
             {(shownPage === PageEnum.main || shownPage === PageEnum.live || shownPage === PageEnum.upcoming || shownPage === PageEnum.recent) && <div className="home-main-content">
@@ -156,15 +185,15 @@ export default function Home() {
                         <h1 className="home-section-latest-blog-high-opacity-title">Latest Blog Posts</h1>
                     </div>
                     <div className="home-section-latest-blog-posts-main-content">
-                        {blogList.map((blog) => (
+                        {blogList.map((blog,index) => (
                             <div className="home-section-blog" key={blog.id}>
                                 <img className="home-section-blog-image" src={blog.imageURL} alt="" />
                                 <div className="home-section-blog-content">
-                                    <h4 className="home-section-blog-content-title">{blog.title}</h4>
-                                    <p className="home-section-blog-content-text">{blog.text}</p>
+                                    <h4 DOMContentLoaded className="home-section-blog-content-title">{blog.title}</h4>
+                                    <p onClick={() => textLength(index)} className="home-section-blog-content-text">{blog.text}</p>
                                     <div className="home-section-blog-content-info">
                                         <div>📅 {blog.date}</div>
-                                        <div>🤍 {blog.likes}</div>
+                                        <div><button className="like-btn" onClick={ () => onLikeChangeHnd(index,blog) }>🤍</button> {blog.likes}</div>
                                         <div>💬 {blog.commentary}</div>
                                     </div>
                                 </div>
