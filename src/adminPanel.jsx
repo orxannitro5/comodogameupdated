@@ -1,7 +1,7 @@
-import React,{ useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import AddGame from "./addGame";
 import AddPhoto from "./addPhotoToGallery";
-import "./adminPanel.css";
+import "./adminPanel.scss";
 import EditGame from "./editGame";
 import EditPhoto from "./editPhoto";
 import avatar from "./assets/avatar.png"
@@ -14,6 +14,8 @@ import AddPlan from "./addPlan";
 import EditPlan from "./editPlan";
 import AddBlog from "./addBlog";
 import EditBlog from "./editBlog";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 const AdminPanel = () => {
     const PageEnum = {
         admin: "admin",
@@ -22,15 +24,15 @@ const AdminPanel = () => {
         editphoto: "editphoto",
         upcominggame: "upcominggame",
         screengallery: "screengallery",
-        gamepad:"gamepad",
-        adduser:"adduser",
-        edituser:"edituser",
-        plans:"plans",
-        addplan:"addplan",
-        editplan:"editplan",
-        blog:"blog",
-        addblog:"addblog",
-        editblog:'editblog'
+        gamepad: "gamepad",
+        adduser: "adduser",
+        edituser: "edituser",
+        plans: "plans",
+        addplan: "addplan",
+        editplan: "editplan",
+        blog: "blog",
+        addblog: "addblog",
+        editblog: 'editblog'
     }
 
 
@@ -39,13 +41,13 @@ const AdminPanel = () => {
     const [dataToEdit, setDataToEdit] = useState({})
     const [imageList, setImageList] = useState([])
     const [photoToEdit, setPhotoToEdit] = useState({})
-    const [search,setSearch] = useState("")
-    const [gamepadList,setGamepadList] = useState([])
-    const [userToEdit,setUserToEdit] = useState([])
-    const [planList,setPlanList] = useState([])
-    const [planToEdit,setPlanToEdit] = useState({})
-    const [blogList,setBlogList] = useState([])
-    const [blogToEdit,setBlogToEdit] = useState({})
+    const [search, setSearch] = useState("")
+    const [gamepadList, setGamepadList] = useState([])
+    const [userToEdit, setUserToEdit] = useState([])
+    const [planList, setPlanList] = useState([])
+    const [planToEdit, setPlanToEdit] = useState({})
+    const [blogList, setBlogList] = useState([])
+    const [blogToEdit, setBlogToEdit] = useState({})
 
 
     useEffect(() => {
@@ -55,32 +57,32 @@ const AdminPanel = () => {
             })
             .catch(error => console.error("Error fetching games:", error));
     }, []);
-    useEffect (()=>{
+    useEffect(() => {
         axios.get("http://localhost:4000/images")
-        .then(response => {
-            setImageList(response.data)
-        })
-        .catch(error => console.log("Error fetching games: ",error  ))
-    },[])
-    useEffect(()=>{
+            .then(response => {
+                setImageList(response.data)
+            })
+            .catch(error => console.log("Error fetching games: ", error))
+    }, [])
+    useEffect(() => {
         axios.get("http://localhost:4000/users")
-        .then(response => {
-            setGamepadList(response.data)
-        })
-        .catch(error => console.log("Error fetching data: ",error))
-    },[])
-    useEffect(()=>{
+            .then(response => {
+                setGamepadList(response.data)
+            })
+            .catch(error => console.log("Error fetching data: ", error))
+    }, [])
+    useEffect(() => {
         axios.get("http://localhost:4000/plans")
-        .then(response => {
-            setPlanList(response.data)
-        })
-        .catch(error=>error)
-    },[])
-    useEffect(()=>{
+            .then(response => {
+                setPlanList(response.data)
+            })
+            .catch(error => error)
+    }, [])
+    useEffect(() => {
         axios.get(`http://localhost:4000/blogs`)
-        .then(response => setBlogList(response.data))
-        .catch(error => error)
-    },[])
+            .then(response => setBlogList(response.data))
+            .catch(error => error)
+    }, [])
 
     const openAddForm = () => {
         setShowCurrentPage(PageEnum.addgame);
@@ -98,11 +100,11 @@ const AdminPanel = () => {
 
     const submitData = (data) => {
         axios.post('http://localhost:4000/games', data)
-        .then(response => {
-            setGameList([...gameList, response.data]);
-            console.log(response.data.imageURL);
-        })
-        .catch(error => console.error('Error adding item:', error));
+            .then(response => {
+                setGameList([...gameList, response.data]);
+                console.log(response.data.imageURL);
+            })
+            .catch(error => console.error('Error adding item:', error));
     };
     const onEditClickHnd = (data) => {
         setShowCurrentPage(PageEnum.edit)
@@ -110,13 +112,13 @@ const AdminPanel = () => {
     }
     const submitDataPhoto = (data) => {
         axios.post('http://localhost:4000/images', data)
-        .then(response => {
-            setImageList([...imageList, response.data])
-        })
-        .catch(error => console.error('Error adding item:', error));
+            .then(response => {
+                setImageList([...imageList, response.data])
+            })
+            .catch(error => console.error('Error adding item:', error));
     };
     const onDeleteClickHnd = (data) => {
-        
+
         axios.delete(`http://localhost:4000/games/${data.id}`)
             .then(() => {
                 const tempList = gameList.filter(item => item.id !== data.id);
@@ -125,36 +127,37 @@ const AdminPanel = () => {
             .catch(error => console.error('Error deleting item:', error));
     }
     const updateData = (data) => {
-        
+
         axios.put(`http://localhost:4000/games/${data.id}`, data)
-        .then(response => {
-            const updatedItems = gameList.map(item => item.id === data.id ? response.data : item);
-            setGameList(updatedItems);
-            console.log(updatedItems);
-        })
-        .catch(error => console.error('Error updating item:', error));
+            .then(response => {
+                const updatedItems = gameList.map(item => item.id === data.id ? response.data : item);
+                setGameList(updatedItems);
+                console.log(updatedItems);
+            })
+            .catch(error => console.error('Error updating item:', error));
 
     }
     const onDeleteClickHndImage = (data) => {
-       
+
         axios.delete(`http://localhost:4000/images/${data.id}`)
-        .then(() => {
-            const tempList = gameList.filter((item)=> item.id !== data.id )
-            setImageList(tempList)
-        })
-        .catch(error => console.error('Error deleting item:', error));
+            .then(() => {
+                const tempList = imageList.filter((item) => item.id !== data.id)
+                setImageList(tempList)
+            })
+            .catch(error => console.error('Error deleting item:', error));
     }
     const onEditClickHndImage = (data) => {
         setShowCurrentPage(PageEnum.editphoto)
         setPhotoToEdit(data)
     }
     const updatePhoto = (data) => {
-        
-        axios.put(`http://localhost:4000/images/${data.id}`,data)
-        .then(response =>{
-            const updatedItems = imageList.map((item)=> item.id === data.id ? response.data : item)
-            setImageList(updatedItems)
-        })}
+
+        axios.put(`http://localhost:4000/images/${data.id}`, data)
+            .then(response => {
+                const updatedItems = imageList.map((item) => item.id === data.id ? response.data : item)
+                setImageList(updatedItems)
+            })
+    }
     const showGames = () => {
         setShowCurrentPage(PageEnum.upcominggame)
     }
@@ -232,152 +235,152 @@ const AdminPanel = () => {
     const backToHome = () => {
         window.location.href = "http://localhost:3000"
     }
-    const hideSidebar = ()=>{
+    const hideSidebar = () => {
         let sidebar = document.querySelector(".admin-panel-left")
         let opensidebar = document.querySelector(".open-sidebar")
         let minisidebar = document.querySelector(".admin-panel-left-smaller")
         sidebar.style.display = "none"
         minisidebar.style.display = "flex"
     }
-    const openSidebar = ()=>{
+    const openSidebar = () => {
         let sidebar = document.querySelector(".admin-panel-left")
         let opensidebar = document.querySelector(".open-sidebar")
         sidebar.style.display = "flex"
         opensidebar.style.display = "none"
 
     }
-    const showFullSidebar = ()=>{
+    const showFullSidebar = () => {
         let sidebar = document.querySelector(".admin-panel-left")
         let minisidebar = document.querySelector(".admin-panel-left-smaller")
 
         sidebar.style.display = "flex"
         minisidebar.style.display = "none"
     }
-    const showGamepad = ()=>{
+    const showGamepad = () => {
         setShowCurrentPage(PageEnum.gamepad)
     }
-    const openAddUserForm = ()=>{
+    const openAddUserForm = () => {
         setShowCurrentPage(PageEnum.adduser)
     }
-    const closeAddUserForm = ()=>{
+    const closeAddUserForm = () => {
         setShowCurrentPage(PageEnum.gamepad)
     }
-    const submitDataUser = (data)=>{
-        axios.post("http://localhost:4000/users",data)
-        .then(response =>{
-            setGamepadList([...gamepadList, response.data])
-            console.log(response.data);
-        })
-        .catch(error => console.log("Error Fetching data" + error) )
+    const submitDataUser = (data) => {
+        axios.post("http://localhost:4000/users", data)
+            .then(response => {
+                setGamepadList([...gamepadList, response.data])
+                console.log(response.data);
+            })
+            .catch(error => console.log("Error Fetching data" + error))
     }
-    const onDeleteClickHndUser = (data)=>{
+    const onDeleteClickHndUser = (data) => {
         axios.delete(`http://localhost:4000/users/${data.id}`)
-        .then(()=>{
-            const tempList = gamepadList.filter((e)=> e.id !== data.id)
-            setGamepadList(tempList)
-        })
-        .catch(error => console.error('Error deleting item:', error));
+            .then(() => {
+                const tempList = gamepadList.filter((e) => e.id !== data.id)
+                setGamepadList(tempList)
+            })
+            .catch(error => console.error('Error deleting item:', error));
 
     }
-    const onEditClickHndUser = (data)=>{
+    const onEditClickHndUser = (data) => {
         setShowCurrentPage(PageEnum.edituser)
         setUserToEdit(data)
     }
-    const updateUser = (data)=>{
-        axios.put(`http://localhost:4000/users/${data.id}`,data)
-        .then( response => {
-            const updatedUser = gamepadList.map((e) => e.id === data.id ? response.data : e)
-            setGamepadList(updatedUser)
-        })
-        .catch(error => error)
+    const updateUser = (data) => {
+        axios.put(`http://localhost:4000/users/${data.id}`, data)
+            .then(response => {
+                const updatedUser = gamepadList.map((e) => e.id === data.id ? response.data : e)
+                setGamepadList(updatedUser)
+            })
+            .catch(error => error)
     }
-    const showPlans = ()=>{
+    const showPlans = () => {
         setShowCurrentPage(PageEnum.plans)
     }
-    const openAddPlanForm = ()=>{
+    const openAddPlanForm = () => {
         setShowCurrentPage(PageEnum.addplan)
     }
-    const closeAddPlanForm = ()=>{
+    const closeAddPlanForm = () => {
         setShowCurrentPage(PageEnum.plans)
     }
-    const submitDataPlan = (data)=>{
-        axios.post(`http://localhost:4000/plans`,data)
-        .then(response => {
-            setPlanList([...planList,response.data])
-        })
-        .catch(error => error)
+    const submitDataPlan = (data) => {
+        axios.post(`http://localhost:4000/plans`, data)
+            .then(response => {
+                setPlanList([...planList, response.data])
+            })
+            .catch(error => error)
     }
-    const onDeleteClickHndPlan = (data)=>{
+    const onDeleteClickHndPlan = (data) => {
         axios.delete(`http://localhost:4000/plans/${data.id}`)
-        .then(() => {
-            let tempList = planList.filter((e)=> e.id !== data.id)
-            setPlanList(tempList)
-        }  
-        )
-        .catch(error => error)
+            .then(() => {
+                let tempList = planList.filter((e) => e.id !== data.id)
+                setPlanList(tempList)
+            }
+            )
+            .catch(error => error)
     }
-    const onEditClickHndPlan = (data)=>{
+    const onEditClickHndPlan = (data) => {
         setShowCurrentPage(PageEnum.editplan)
         setPlanToEdit(data)
     }
-    const updatePlan = (data)=>{
-        axios.put(`http://localhost:4000/plans/${data.id}`,data)
-        .then( response => {
-            const updatedplan = planList.map((e) => e.id === data.id ? response.data : e)
-            setPlanList(updatedplan)
-        })
-        .catch(error => error)
+    const updatePlan = (data) => {
+        axios.put(`http://localhost:4000/plans/${data.id}`, data)
+            .then(response => {
+                const updatedplan = planList.map((e) => e.id === data.id ? response.data : e)
+                setPlanList(updatedplan)
+            })
+            .catch(error => error)
     }
-    const showBlogs = ()=>{
+    const showBlogs = () => {
         setShowCurrentPage(PageEnum.blog)
     }
-    const openAddBlogForm = ()=>{
+    const openAddBlogForm = () => {
         setShowCurrentPage(PageEnum.addblog)
     }
-    const closeAddBlogForm = ()=>{
+    const closeAddBlogForm = () => {
         setShowCurrentPage(PageEnum.blog)
     }
-    const submitDataBlog = (data)=>{
-        axios.post(`http://localhost:4000/blogs`,data)
-        .then((response)=>{
-            setBlogList([...blogList,response.data])
-        })
-        .catch(error=>error)
+    const submitDataBlog = (data) => {
+        axios.post(`http://localhost:4000/blogs`, data)
+            .then((response) => {
+                setBlogList([...blogList, response.data])
+            })
+            .catch(error => error)
     }
-    const onDeleteClickHndBlog = (data)=>{
+    const onDeleteClickHndBlog = (data) => {
         axios.delete(`http://localhost:4000/blogs/${data.id}`)
-        .then(() =>{
-            let tempList = blogList.filter((e) => e.id !== data.id)
-            setBlogList(tempList)
-        })
-        .catch(error => error)
+            .then(() => {
+                let tempList = blogList.filter((e) => e.id !== data.id)
+                setBlogList(tempList)
+            })
+            .catch(error => error)
     }
-    const onEditClickHndBlog = (data)=>{
+    const onEditClickHndBlog = (data) => {
         setShowCurrentPage(PageEnum.editblog)
         setBlogToEdit(data)
     }
-    const updateBlog = (data)=>{
-        axios.put(`http://localhost:4000/blogs/${data.id}`,data)
-        .then(response =>{
-            let updatedList = blogList.map((e) => e.id === data.id ? response.data : e)
-            setBlogList(updatedList)
-            console.log(updatedList);
+    const updateBlog = (data) => {
+        axios.put(`http://localhost:4000/blogs/${data.id}`, data)
+            .then(response => {
+                let updatedList = blogList.map((e) => e.id === data.id ? response.data : e)
+                setBlogList(updatedList)
+                console.log(updatedList);
 
-        })
-        .catch(error=> console.log(error))
+            })
+            .catch(error => console.log(error))
     }
     return (
-        <div >
+        <div>
             <div className="admin-panel-main">
                 <div className="admin-panel-left">
-                    
-                    <div className="a">  
-                    <div className="nav-to-home" onClick={backToHome}>🏠</div>
-                    <img class="hide-sidebar" onClick={hideSidebar} src={sidebarclose} alt="" />
+
+                    <div className="a">
+                        <div className="nav-to-home" onClick={backToHome}>🏠</div>
+                        <img class="hide-sidebar" onClick={hideSidebar} src={sidebarclose} alt="" />
                     </div>
 
                     <div className="admin-panel-left-title-admin">
-                        <img  className="avatar" src={avatar} alt="" />
+                        <img className="avatar" src={avatar} alt="" />
                         <p>Orxan Ahmedov</p>
 
                     </div>
@@ -390,14 +393,14 @@ const AdminPanel = () => {
 
                 </div>
                 <div className="admin-panel-left-smaller">
-                    
-                    <div className="a">  
-                    <div className="nav-to-home" onClick={backToHome}>🏠</div>
-                    <img class="hide-sidebar" onClick={showFullSidebar} src={sidebaropen} alt="" />
+
+                    <div className="a">
+                        <div className="nav-to-home" onClick={backToHome}>🏠</div>
+                        <img class="hide-sidebar" onClick={showFullSidebar} src={sidebaropen} alt="" />
                     </div>
 
                     <div className="admin-panel-left-title-admin">
-                        <img  className="avatar" src={avatar} alt="" />
+                        <img className="avatar" src={avatar} alt="" />
                     </div>
                     <button className="admin-panel-left-title-game" onClick={showGames}>📣</button>
                     <button className="admin-panel-left-title-photo" onClick={showScreen}>🖼️</button>
@@ -417,13 +420,14 @@ const AdminPanel = () => {
                         </div>
                     )}
                     <button className="open-sidebar" onClick={openSidebar}>Open the menu</button>
-                    
+
                     {showCurrentPage === PageEnum.upcominggame &&
                         (<div className="upcoming-game">
                             <h2>Add Upcoming Game</h2>
                             <input className="add-game-btn" type="button" value="Add Game" onClick={openAddForm} />
                             <label className="search-engine-label"><span className="loupe">🔍</span>
-                            <input className="search-engine" type="text" onChange={(e)=> setSearch(e.target.value)} /></label>
+                                <input className="search-engine" type="text" onChange={(e) => setSearch(e.target.value)} />
+                            </label>
                             <table>
                                 <thead>
                                     <tr>
@@ -433,20 +437,21 @@ const AdminPanel = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {gameList.filter((game)=>{
-                                        return search.toLowerCase() === "" 
-                                        ? game 
-                                        : game.text.toLowerCase().includes(search.toLowerCase()); })
+                                    {gameList.filter((game) => {
+                                        return search.toLowerCase() === ""
+                                            ? game
+                                            : game.text.toLowerCase().includes(search.toLowerCase());
+                                    })
                                         .map((game) => (
-                                        <tr key={game.id}>
-                                            <td><img src={game.imageURL} style={{ width: '100px', height: 'auto' }} /></td>
-                                            <td>{game.text}</td>
-                                            <td className="remove-edit-button">
-                                                <button className="delete-btn" onClick={() => onDeleteClickHnd(game)} >x</button>
-                                                <button className="edit-btn" onClick={() => onEditClickHnd(game)}>Edit</button>
-                                            </td>
-                                        </tr>
-                                    ))}
+                                            <tr key={game.id}>
+                                                <td><img src={game.imageURL} style={{ width: '100px', height: 'auto' }} /></td>
+                                                <td>{game.text}</td>
+                                                <td className="remove-edit-button">
+                                                    <button type="button" class="btn btn-danger" onClick={() => onDeleteClickHnd(game)} >x</button>
+                                                    <button type="button" class="btn btn-secondary" onClick={() => onEditClickHnd(game)}>Edit</button>
+                                                </td>
+                                            </tr>
+                                        ))}
                                 </tbody>
                             </table>
                         </div>)}
@@ -468,8 +473,9 @@ const AdminPanel = () => {
                                             <td>{image.id}</td>
                                             <td><img src={image.imageURL} style={{ width: '100px', height: 'auto' }} /></td>
                                             <td className="remove-edit-button">
-                                                <button className="delete-btn" onClick={() => onDeleteClickHndImage(image)}>x</button>
-                                                <button className="edit-btn" onClick={() => onEditClickHndImage(image)}>Edit</button>
+                                                <button type="button" class="btn btn-danger" onClick={() => onDeleteClickHndImage(image)}>x</button>
+                                                <button type="button" class="btn btn-secondary" onClick={() => onEditClickHndImage(image)}>Edit</button>
+
                                             </td>
                                         </tr>
                                     ))}
@@ -478,106 +484,109 @@ const AdminPanel = () => {
                         </div>}
                     {showCurrentPage === PageEnum.gamepad &&
                         <div className="gamepad-block">
-                        <h2>Add Info About Users</h2>
-                        <input className="add-game-btn" type="button" value="Add User" onClick={openAddUserForm} />
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>User</th>
-                                    <th>Stars</th>
-                                    <th>Location</th>
-                                    <th>Commentary</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {gamepadList.map((users) => (
-                                    <tr key={users.id}>
-                                        <td>{users.user}</td>
-                                        <td>{users.stars}</td>
-                                        <td>{users.location}</td>
-                                        <td>{users.comment}</td>
-                                        {/* <td><img src={image.imageURL} style={{ width: '100px', height: 'auto' }} /></td> */}
-                                        <td className="remove-edit-button">
-                                            <button className="delete-btn" onClick={() => onDeleteClickHndUser(users)}>x</button>
-                                            <button className="edit-btn" onClick={() => onEditClickHndUser(users)}>Edit</button>
-                                        </td>
+                            <h2>Add Info About Users</h2>
+                            <input className="add-game-btn" type="button" value="Add User" onClick={openAddUserForm} />
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Stars</th>
+                                        <th>Location</th>
+                                        <th>Commentary</th>
+                                        <th>Actions</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                                </thead>
+                                <tbody>
+                                    {gamepadList.map((users) => (
+                                        <tr key={users.id}>
+                                            <td>{users.user}</td>
+                                            <td>{users.stars}</td>
+                                            <td>{users.location}</td>
+                                            <td>{users.comment}</td>
+                                            {/* <td><img src={image.imageURL} style={{ width: '100px', height: 'auto' }} /></td> */}
+                                            <td className="remove-edit-button">
+                                                <button type="button" class="btn btn-danger" onClick={() => onDeleteClickHndUser(users)}>x</button>
+                                                <button type="button" class="btn btn-secondary" onClick={() => onEditClickHndUser(users)}>Edit</button>
+
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     }
                     {showCurrentPage === PageEnum.plans &&
                         <div className="pricing-plans">
-                        <h2>Add Pricing Plans</h2>
-                        <input className="add-game-btn" type="button" value="Add Plan" onClick={openAddPlanForm} />
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Package Name</th>
-                                    <th>Price</th>
-                                    <th>Game 1</th>
-                                    <th>Game 2</th>
-                                    <th>Game 3</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {planList.map((plan) => (
-                                    <tr key={plan.id}>
-                                        <td>{plan.name}</td>
-                                        <td>{plan.price}</td>
-                                        <td>{plan.game1}</td>
-                                        <td>{plan.game2}</td>
-                                        <td>{plan.game3}</td>
-                                        {/* <td><img src={image.imageURL} style={{ width: '100px', height: 'auto' }} /></td> */}
-                                        <td className="remove-edit-button">
-                                            <button className="delete-btn" onClick={() => onDeleteClickHndPlan(plan)}>x</button>
-                                            <button className="edit-btn" onClick={() => onEditClickHndPlan(plan)}>Edit</button>
-                                        </td>
+                            <h2>Add Pricing Plans</h2>
+                            <input className="add-game-btn" type="button" value="Add Plan" onClick={openAddPlanForm} />
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Package Name</th>
+                                        <th>Price</th>
+                                        <th>Game 1</th>
+                                        <th>Game 2</th>
+                                        <th>Game 3</th>
+                                        <th>Actions</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                    }   
+                                </thead>
+                                <tbody>
+                                    {planList.map((plan) => (
+                                        <tr key={plan.id}>
+                                            <td>{plan.name}</td>
+                                            <td>{plan.price}</td>
+                                            <td>{plan.game1}</td>
+                                            <td>{plan.game2}</td>
+                                            <td>{plan.game3}</td>
+                                            {/* <td><img src={image.imageURL} style={{ width: '100px', height: 'auto' }} /></td> */}
+                                            <td className="remove-edit-button">
+                                                <button type="button" class="btn btn-danger" onClick={() => onDeleteClickHndPlan(plan)}>x</button>
+                                                <button type="button" class="btn btn-secondary" onClick={() => onEditClickHndPlan(plan)}>Edit</button>
+
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    }
                     {showCurrentPage === PageEnum.blog &&
                         <div className="admin-panel-latest-blog">
-                        <h2>Add Latest Blog Posts</h2>
-                        <input className="add-game-btn" type="button" value="Add Blog" onClick={openAddBlogForm} />
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Cover Of Blog</th>
-                                    <th>Title Of Blog</th>
-                                    <th>Content</th>
-                                    <th>Date Of Publication</th>
-                                    <th>Likes</th>
-                                    <th>Comments</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {blogList.map((blog) => (
-                                    <tr key={blog.id}>
-                                        <td><img src={blog.imageURL} alt="" /></td>
-                                        <td>{blog.title}</td>
-                                        <td>{blog.text}</td>
-                                        <td>{blog.date}</td>
-                                        <td>{blog.likes}</td>
-                                        <td>{blog.commentary}</td>
-
-                                        <td className="remove-edit-button">
-                                            <button className="delete-btn" onClick={() => onDeleteClickHndBlog(blog)}>x</button>
-                                            <button className="edit-btn" onClick={() => onEditClickHndBlog(blog)}>Edit</button>
-                                        </td>
+                            <h2>Add Latest Blog Posts</h2>
+                            <input className="add-game-btn" type="button" value="Add Blog" onClick={openAddBlogForm} />
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Cover Of Blog</th>
+                                        <th>Title Of Blog</th>
+                                        <th>Content</th>
+                                        <th>Date Of Publication</th>
+                                        <th>Likes</th>
+                                        <th>Comments</th>
+                                        <th>Actions</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                    } 
+                                </thead>
+                                <tbody>
+                                    {blogList.map((blog) => (
+                                        <tr key={blog.id}>
+                                            <td><img src={blog.imageURL} alt="" /></td>
+                                            <td>{blog.title}</td>
+                                            <td>{blog.text}</td>
+                                            <td>{blog.date}</td>
+                                            <td>{blog.likes}</td>
+                                            <td>{blog.commentary}</td>
+
+                                            <td className="remove-edit-button">
+                                                <button type="button" class="btn btn-danger" onClick={() => onDeleteClickHndBlog(blog)}>x</button>
+                                                <button type="button" class="btn btn-secondary" onClick={() => onEditClickHndBlog(blog)}>Edit</button>
+
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    }
 
                     {showCurrentPage === PageEnum.addgame && (
                         <AddGame onBackBtnHnd={closeAddGameForm} onSubmitClickHnd={submitData} />
@@ -595,16 +604,16 @@ const AdminPanel = () => {
                         <AddUser onBackBtnHnd={closeAddUserForm} onSubmitClickHnd={submitDataUser} />
                     }
                     {showCurrentPage === PageEnum.edituser &&
-                        <EditUser onBackBtnHnd={closeAddUserForm} data={userToEdit} onUpdateClickHnd={updateUser}/>
+                        <EditUser onBackBtnHnd={closeAddUserForm} data={userToEdit} onUpdateClickHnd={updateUser} />
                     }
                     {showCurrentPage === PageEnum.addplan &&
-                        <AddPlan onBackBtnHnd={closeAddPlanForm} onSubmitClickHnd={submitDataPlan}  />
+                        <AddPlan onBackBtnHnd={closeAddPlanForm} onSubmitClickHnd={submitDataPlan} />
                     }
                     {showCurrentPage === PageEnum.editplan &&
-                        <EditPlan onBackBtnHnd={closeAddPlanForm} data={planToEdit} onUpdateClickHnd={updatePlan}/>
+                        <EditPlan onBackBtnHnd={closeAddPlanForm} data={planToEdit} onUpdateClickHnd={updatePlan} />
                     }
                     {showCurrentPage === PageEnum.addblog &&
-                        <AddBlog  onBackBtnHnd={closeAddBlogForm} onSubmitClickHnd={submitDataBlog} />
+                        <AddBlog onBackBtnHnd={closeAddBlogForm} onSubmitClickHnd={submitDataBlog} />
                     }
                     {showCurrentPage === PageEnum.editblog &&
                         <EditBlog onBackBtnHnd={closeAddBlogForm} data={blogToEdit} onUpdateClickHnd={updateBlog} />

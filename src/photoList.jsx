@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import "./screens-gallery.css";
+import "./screens-gallery.scss";
 import axios from "axios";
 
 

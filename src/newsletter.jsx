@@ -1,5 +1,5 @@
 import React from "react";
-import "./newsletter.css";
+import "./newsletter.scss";
 export default function NewsLetter(){
     return(
         <div className="newsletter-main-block">

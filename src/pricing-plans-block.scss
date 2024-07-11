@@ -1,0 +1,148 @@
+$primary-color:#2c2172;
+
+.pricing-block-main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Rajdhani", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    & .pricing-block-title{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: 130px;
+        font-family: "Rajdhani", sans-serif;
+        font-weight: 600;
+        font-style: normal;
+        & .pricing-block-low-opacity-title{
+            font-size: 72px;
+            color: #3fcaff;
+            opacity: 0.1;
+            text-align: center;
+        }
+        & .pricing-block-high-opacity-title{
+            color: #222222;
+            margin-top: -60px;
+            text-align: center;
+        }
+    } 
+    &  .pricing-plans-container{
+        display: flex;
+        width: 1140px;
+        justify-content: space-between;
+        color: white;
+        padding: 50px 0px;
+        & .pricing-plans-info{
+            & .pricing-plans-name{
+                width: 350px;
+                height: 80px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: $primary-color ;
+            }
+            & .pricing-plans-price{
+                height: 100px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #3f309e
+            }
+            & .pricing-plans-infos{
+                background-color: $primary-color;
+                padding: 35px 50px 80px;
+                & .pricing-plans-services{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 14px 0px;
+                    margin-bottom: 10px;
+                    border-bottom: 1px dotted rgb(223, 221, 221);
+                }
+            }
+            & .pricing-plans-button{
+                width: 350px;
+                padding: 0px 0px 50px;
+                text-align: center ;
+                background-color: $primary-color;
+                & .pricing-plans-btn{
+                    background-color: $primary-color;
+                    width: 200px;
+                    height: 60px;
+                    border-radius: 20px;
+                    border: 2px solid #3fcaff;
+                    color: white;
+                    font-family: "Rajdhani", sans-serif;
+                    font-weight: bold;
+                    font-style: italic;
+                    &:hover{
+                        background: linear-gradient(to right, #3fcaff 0%, #a4ffb0 100%);
+                        color: black;
+                    }
+                }
+            }
+        }
+    }
+    
+}
+@media(max-width:1140px){
+    .pricing-block-main{
+        & .pricing-block-title{
+            margin: 0px;
+        }
+        & .pricing-plans-container{
+            width: 80%;
+            justify-content: space-around;
+            & .pricing-plans-info{
+                width: 30%;
+                & .pricing-plans-name{
+                    width: 100%;
+                }
+                & .pricing-plans-button{
+                    width: 100%;
+                    & .pricing-plans-btn{
+                        width: 60%;
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+}
+@media (max-width:768px){
+    .pricing-block-main{
+        & .pricing-block-title{
+            width: 355px;
+            margin: 0px;
+            & .pricing-block-low-opacity-title{
+                font-size: 50px;
+            }
+            & .pricing-block-high-opacity-title{
+                font-size: 36px;
+                margin-top: -50px;
+            }
+        }
+        & .pricing-plans-container{
+            width:100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            & .pricing-plans-info{
+                width: 90%;
+                margin-bottom: 25px;
+            }
+        }
+    }
+    
+    
+    
+    
+    
+}

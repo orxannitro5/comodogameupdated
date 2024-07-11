@@ -1,4 +1,4 @@
-import "./about.css";
+import "./about.scss";
 import americanfootballlarge from "./assets/recent_up.png.webp";
 const UpcomingGames = () => {
     return (

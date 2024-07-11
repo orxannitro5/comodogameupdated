@@ -1,5 +1,5 @@
 import React from "react";
-import "./frequently-asked-question-block.css";
+import "./frequently-asked-question-block.scss";
 export default function FrequentlyAsked() {
     return (
         <div className="frequently-asked-question-main">
@@ -20,7 +20,7 @@ export default function FrequentlyAsked() {
                             <p className="frequently-asked-question-main-content-text">inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards
                                 especially in the workplace. That’s why it’s crucial that as women.</p>
                         </div>
-                        <div>
+                        <div >
                             <h3 className="frequently-asked-question-main-content-title">We Believe that Interior beauty Lasts Long</h3>
                             <p className="frequently-asked-question-main-content-text">inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards
                                 especially in the workplace. That’s why it’s crucial that as women.</p>

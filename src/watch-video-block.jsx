@@ -1,6 +1,6 @@
 import novostroyka from "./assets/home-left.png.webp";
 import React from "react";
-import "./watch-video-block.css";
+import "./watch-video-block.scss";
 export default function watchVideoBlock() {
     return (
         <div className="home-section-first-block">

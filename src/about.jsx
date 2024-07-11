@@ -1,5 +1,5 @@
 import React from "react";
-import "./about.css";
+import "./about.scss";
 import AboutUsBlock from "./about-us-block";
 import GamepadBlock from "./gamepad-block";
 import FrequentlyAsked from "./frequently-asked-question-block";

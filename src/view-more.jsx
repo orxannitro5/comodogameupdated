@@ -1,5 +1,5 @@
 import React from "react";
-import "./view-more.css";
+import "./view-more.scss";
 import largephoto from "./assets/view-more-img-large.webp";
 import postmore from "./assets/post-img1.jpg.webp";
 import postmore2 from "./assets/post-img2.jpg.webp";
@@ -153,7 +153,8 @@ export default function ViewMore() {
                             
                             <input className="reply-section-subject" type="text" placeholder="Subject" />
                             <textarea className="reply-section-textarea"   id="" placeholder="Message" ></textarea>
-                            <div className="reply-section-button"><button className="reply-section-btn">
+                            <div className="reply-section-button">
+                                <button className="reply-section-btn">
                                 Leave Comment
                                 </button>
                                 </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import "./blog.css";
+import "./blog.scss";
 import WatchVideoBlock from "./watch-video-block";
 import sociallife from "./assets/cat-post-3.jpg.webp"
 import politics from "./assets/cat-post-2.jpg.webp";
@@ -17,15 +17,14 @@ import post4 from "./assets/post4.jpg.webp";
 import forest from "./assets/m-blog-2.jpg.webp";
 import wedding from "./assets/m-blog-3.jpg.webp";
 import city from "./assets/m-blog-5.jpg.webp";
-import ViewMore from "./view-more";
-import {  NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 
 
 
 export default function Blog() {
     return (
-        
+
         <div className="blog-section">
             <WatchVideoBlock />
             <div className="blog-section-content">
@@ -57,7 +56,7 @@ export default function Blog() {
                     <div className="blog-section-last-part-main-content">
                         <div className="blog-section-main-content-left-part">
                             <div className="blog-section-main-content-block">
-                            <div className="blog-section-main-content-block-left">
+                                <div className="blog-section-main-content-block-left">
                                     <div className="info-left">
                                         <p className="info-left-content">Food,Technology</p>
                                         <p className="info-left-content">Politics,Lifestyle</p>
@@ -76,9 +75,9 @@ export default function Blog() {
                                     <p className="blog-section-main-info-block-text">MCSE boot camps have its supporters and its detractors. Some people do not understand
                                         why you should have to spend money on boot camp when you can get the MCSE study materials
                                         yourself at a fraction.</p>
-                                        <NavLink to="/viewmore" exact activeClassName="active" className="blog-section-main-info-block-link">View More</NavLink>
-    
-                                    
+                                    <NavLink to="/viewmore" exact activeClassName="active" className="blog-section-main-info-block-link">View More</NavLink>
+
+
                                 </div>
                             </div>
                             <div className="blog-section-main-content-block">
@@ -99,7 +98,7 @@ export default function Blog() {
                                     <p className="blog-section-main-info-block-text">MCSE boot camps have its supporters and its detractors. Some people do not understand
                                         why you should have to spend money on boot camp when you can get the MCSE study materials
                                         yourself at a fraction.</p>
-                                        <NavLink to="/viewmore" exact activeClassName="active" className="blog-section-main-info-block-link">View More</NavLink>
+                                    <NavLink to="/viewmore" exact activeClassName="active" className="blog-section-main-info-block-link">View More</NavLink>
                                 </div>
                             </div>
                             <div className="blog-section-main-content-block">
@@ -141,7 +140,7 @@ export default function Blog() {
                                     <p className="blog-section-main-info-block-text">MCSE boot camps have its supporters and its detractors. Some people do not understand
                                         why you should have to spend money on boot camp when you can get the MCSE study materials
                                         yourself at a fraction.</p>
-                                        <NavLink to="/viewmore" exact activeClassName="active" className="blog-section-main-info-block-link">View More</NavLink>
+                                    <NavLink to="/viewmore" exact activeClassName="active" className="blog-section-main-info-block-link">View More</NavLink>
                                 </div>
                             </div>
                         </div>

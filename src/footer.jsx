@@ -1,5 +1,5 @@
 import React from "react";
-import "./footer.css";
+import "./footer.scss";
 import facebook from "./assets/facebook-squared.svg";
 import instagram from "./assets/instagram.svg";
 import linkedin from "./assets/linkedin-square.svg";
@@ -41,12 +41,12 @@ export default function Footer() {
                     </div>
                     <div className="footer-content-colomn">
                         <h4 className="footer-colomn-title">Legal</h4>
-                    <ul  className="footer-colomn-ul">
-                        <li className="footer-colomn-list">Terms and conditions</li>
-                        <li className="footer-colomn-list">Privacy Policy</li>
-                        <li className="footer-colomn-list">Cookie Information</li>
-                        <li className="footer-colomn-list">Opt - Out</li>
-                        <li className="footer-colomn-list">Farfly Blog</li>
+                        <ul className="footer-colomn-ul">
+                            <li className="footer-colomn-list">Terms and conditions</li>
+                            <li className="footer-colomn-list">Privacy Policy</li>
+                            <li className="footer-colomn-list">Cookie Information</li>
+                            <li className="footer-colomn-list">Opt - Out</li>
+                            <li className="footer-colomn-list">Farfly Blog</li>
                         </ul>
                     </div>
                 </div>

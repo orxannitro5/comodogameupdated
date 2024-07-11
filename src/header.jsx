@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./header.css";
+import "./header.scss";
 import comodologo from "./assets/comodologo.webp";
 import { Routes, Route, NavLink, useNavigate  } from "react-router-dom";
 import Home from "./home";
@@ -39,7 +39,7 @@ export default function Header({adminShow,opensLogin}) {
                         <NavLink to="/blog" activeClassName="active" className="nav-link">BLOG</NavLink>
                         <NavLink to="/contact" activeClassName="active" className="nav-link">CONTACT</NavLink>
                         {log &&
-                        <NavLink to="/admin" activeClassName="active" className="nav-link" onClick={adminShow}>Admin</NavLink>
+                        <NavLink to="/admin" activeClassName="active" className="nav-link" onClick={adminShow}>ADMIN</NavLink>
 
                         }
                     </div>

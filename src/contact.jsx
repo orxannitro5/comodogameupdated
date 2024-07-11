@@ -1,6 +1,6 @@
 import React from "react";
 import Map from "./map";
-import "./contact.css"
+import "./contact.scss"
 export default function Contact() {
     return (
         <>

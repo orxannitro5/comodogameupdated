@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./gamepad-block.css";
+import "./gamepad-block.scss";
 import star from "./assets/star.png";
 import numbertitle from "./assets/quote.png.webp";
 import Slider from 'react-slick';

@@ -1,16 +1,12 @@
-import "./home.css";
+import "./home.scss";
 import React, { useState, useEffect } from "react";
 import americanfootballlarge from "./assets/recent_up.png.webp";
-
 import WatchVideoBlock from "./watch-video-block";
 import AboutUsBlock from "./about-us-block";
 import ScreensGallery from "./screens-gallery";
 import GamepadBlock from "./gamepad-block";
 import PricingPlans from "./pricing-plans-block";
 import FrequentlyAsked from "./frequently-asked-question-block";
-import LatestBlogPostsFirstImage from "./assets/blog_img1.png.webp";
-import LatestBlogPostsSecondImage from "./assets/blog_img2.png.webp";
-import LatestBlogPostsThirdImage from "./assets/blog_img3.png.webp";
 import NewsLetter from "./newsletter";
 import LiveStreaming from "./liveStreaming";
 import RecentGames from "./recentGames";
@@ -96,8 +92,7 @@ export default function Home() {
     }, [])
     const onLikeChangeHnd = (index, blog) => {
         if (likedIndexes.includes(index)) {
-            console.log("hi");
-            return; 
+            return;
         }
 
         let newBlogList = [...blogList];
@@ -112,14 +107,21 @@ export default function Home() {
                 console.error('Error updating blog:', err);
             });
     };
-    const textLength = (blog,index)=>{
-        let text = document.querySelectorAll(".home-section-blog-content-text")
-        let val = text[blog].textContent.length
-        if(val > 280){
-            text[blog].textContent = text[blog].textContent.substring(0, 300) + "..."
-        }
-    }
-    
+    useEffect(() => {
+        const textLength = () => {
+            let textElements = document.querySelectorAll(".home-section-blog-content-text");
+            textElements.forEach((element) => {
+                let val = element.textContent.length;
+                if (val > 280) {
+                    element.textContent = element.textContent.substring(0, 300) + "...";
+                }
+            });
+        };
+
+        textLength();
+    }, [blogList]);
+
+
 
     return (
         <div className="home-main">
@@ -138,7 +140,7 @@ export default function Home() {
                             <div className="home-section-fourth-block-bottom-side-right">
                                 <h2 className="exit-button" onClick={turnBack}>x</h2>
                                 <p className="home-section-fourth-block-bottom-side-right-info">Live Streaming <br />________</p>
-                                <h2 className="home-section-fourth-block-bottom-side-right-title ">Dive into the Thrilling World of Comodo: Live Streaming Adventures Await!</h2>
+                                <h2 className="home-section-fourth-block-bottom-side-right-title">Dive into the Thrilling World of Comodo: Live Streaming Adventures Await!</h2>
                                 <p className="home-section-fourth-block-bottom-side-right-text">Welcome to the thrilling world of Comodo, the game that's taking the live streaming community by storm! As players dive into the immersive landscapes of Comodo, they're greeted by vibrant visuals, challenging quests, and intense battles that keep viewers on the edge of their seats.</p>
                                 <button className="home-section-fourth-block-bottom-side-right-button" onClick={showLiveSection}>LEARN MORE</button>
                             </div>
@@ -185,15 +187,15 @@ export default function Home() {
                         <h1 className="home-section-latest-blog-high-opacity-title">Latest Blog Posts</h1>
                     </div>
                     <div className="home-section-latest-blog-posts-main-content">
-                        {blogList.map((blog,index) => (
+                        {blogList.map((blog, index) => (
                             <div className="home-section-blog" key={blog.id}>
                                 <img className="home-section-blog-image" src={blog.imageURL} alt="" />
                                 <div className="home-section-blog-content">
                                     <h4 DOMContentLoaded className="home-section-blog-content-title">{blog.title}</h4>
-                                    <p onClick={() => textLength(index)} className="home-section-blog-content-text">{blog.text}</p>
+                                    <p className="home-section-blog-content-text">{blog.text}</p>
                                     <div className="home-section-blog-content-info">
                                         <div>📅 {blog.date}</div>
-                                        <div><button className="like-btn" onClick={ () => onLikeChangeHnd(index,blog) }>🤍</button> {blog.likes}</div>
+                                        <div><button className="like-btn" onClick={() => onLikeChangeHnd(index, blog)}>🤍</button> {blog.likes}</div>
                                         <div>💬 {blog.commentary}</div>
                                     </div>
                                 </div>

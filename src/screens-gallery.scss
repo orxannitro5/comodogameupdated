@@ -1,0 +1,66 @@
+.screens-gallery-main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    & .screens-gallery-main-title{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: 70px;
+        font-family: "Rajdhani", sans-serif;
+        font-weight: 600;
+        font-style: normal;
+        & .screens-gallery-main-low-opacity-title{
+            font-size: 72px;
+            color: #3fcaff;
+            opacity: 0.1;
+            text-align: center;
+        }
+        & .screens-gallery-main-high-opacity-title{
+            color: #222222;
+            margin-top: -60px;
+            text-align: center;
+        }
+        
+    }  
+}
+
+
+
+@media (max-width:768px){
+    .screens-gallery-main{
+        & .screens-gallery-main-title{
+            & .screens-gallery-main-low-opacity-title{
+                font-size: 50px;
+            }
+            & .screens-gallery-main-high-opacity-title{
+                font-size: 36px;
+                margin-top: -50px;
+            }
+        }
+        
+    }
+    
+    
+}
+
+.photo-list-main-block{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 100px 0px;
+    justify-content: center;
+    & .photo-list-content{
+        margin: 10px 5px;
+        & .photo{
+            width: 360px ;
+            height: 210px;
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+        }
+    }
+    
+}
+

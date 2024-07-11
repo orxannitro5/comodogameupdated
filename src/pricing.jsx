@@ -1,5 +1,5 @@
 import React from "react";
-import "./pricing.css"
+import "./pricing.scss"
 import PricingPlans from "./pricing-plans-block";
 import NewsLetter from "./newsletter";
 

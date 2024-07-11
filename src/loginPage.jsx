@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./loginPage.css";
+import "./loginPage.scss";
 import { data } from "./mail.password";
 
 const LoginPage = () => {

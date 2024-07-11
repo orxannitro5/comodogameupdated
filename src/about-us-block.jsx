@@ -1,24 +1,14 @@
 import React, {  useState ,useEffect} from "react"
 import racer from "./assets/about_img.png.webp";
-import "./about-us-block.css"
-import AddGame from "./addGame"
+import "./about-us-block.scss"
 import GameList from "./gameList"
-import EditGame from "./editGame";
 const PageEnum = {
     list :"list",
     add:"add",
     edit:"edit"
 };
 export default function Aboutusblock() {
-    // const [gameList,setGameList] = useState([])
     
-    
-    
-    
-    // useEffect(() => {
-    //     const storedGameList = JSON.parse(sessionStorage.getItem("GameList") || "[]");
-    //     setGameList(storedGameList);
-    // }, []);
     
     return (
         <div className="home-section-third-block">

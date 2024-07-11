@@ -1,7 +1,6 @@
 import React, { useState,useEffect } from "react";
-import "./screens-gallery.css";
+import "./screens-gallery.scss";
 import PhotoList from "./photoList"
-import EditPage from "./editPhoto"
 
 
 export default function ScreensGallery() {
