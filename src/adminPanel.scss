@@ -78,6 +78,9 @@ div {
       & .admin-panel-left-title-blog {
         @include admin-panel-left-title-element
       }
+      & .admin-panel-left-title-contact{
+        @include admin-panel-left-title-element
+      }
     }
     & .admin-panel {
       text-align: center;
@@ -423,6 +426,88 @@ div {
       }
   
       & .admin-panel-latest-blog {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+  
+        & .add-game-btn {
+          margin: 20px
+        }
+  
+        & .search-engine-label {
+          background-color: #2c2172;
+          padding: 5px;
+          border-radius: 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+  
+          & .search-engine {
+            background-color: #2c2172;
+            height: 20px;
+            color: white;
+            border: 0px;
+  
+            &:focus {
+              outline: none;
+            }
+          }
+  
+          & .loupe {
+            padding: 5px;
+          }
+  
+        }
+  
+        & table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 90%;
+          margin: 20px;
+  
+          & thead {
+            & tr {
+              &:nth-child(even) {
+                background-color: #dddddd;
+  
+                & th {
+                  border: 1px solid #dddddd;
+                  text-align: left;
+                  padding: 8px;
+                }
+              }
+            }
+          }
+  
+          & tbody {
+            tr {
+              &:nth-child(even) {
+                background-color: #dddddd;
+              }
+  
+              & td {
+                border: 1px solid #dddddd;
+                text-align: center;
+                padding: 8px;
+              }
+  
+              & .remove-edit-button {
+                
+                &.edit-btn {
+                  padding: 5px;
+                }
+  
+                *.delete-btn {
+                  padding: 5px;
+                }
+              }
+  
+            }
+          }
+        }
+      }
+      & .admin-panel-contact {
         display: flex;
         flex-direction: column;
         justify-content: center;

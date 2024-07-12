@@ -15,8 +15,11 @@ import EditPlan from "./editPlan";
 import AddBlog from "./addBlog";
 import EditBlog from "./editBlog";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useDispatch, useSelector } from "react-redux";
+import { deleteContact, fetchContacts } from "./redux/contactSlice";
 
 const AdminPanel = () => {
+    const contacts = useSelector((state)=> state.contact)
     const PageEnum = {
         admin: "admin",
         addgame: "addgame",
@@ -32,9 +35,9 @@ const AdminPanel = () => {
         editplan: "editplan",
         blog: "blog",
         addblog: "addblog",
-        editblog: 'editblog'
+        editblog: 'editblog',
+        contact:"contact"
     }
-
 
     const [showCurrentPage, setShowCurrentPage] = useState(PageEnum.admin);
     const [gameList, setGameList] = useState([]);
@@ -48,6 +51,7 @@ const AdminPanel = () => {
     const [planToEdit, setPlanToEdit] = useState({})
     const [blogList, setBlogList] = useState([])
     const [blogToEdit, setBlogToEdit] = useState({})
+    const [contactList,setContactList] = useState([])
 
 
     useEffect(() => {
@@ -83,7 +87,9 @@ const AdminPanel = () => {
             .then(response => setBlogList(response.data))
             .catch(error => error)
     }, [])
-
+    // useEffect(()=>{
+    //     dispatch(fetchContacts())
+    // })
     const openAddForm = () => {
         setShowCurrentPage(PageEnum.addgame);
     };
@@ -352,6 +358,7 @@ const AdminPanel = () => {
             .then(() => {
                 let tempList = blogList.filter((e) => e.id !== data.id)
                 setBlogList(tempList)
+                console.log("hello");
             })
             .catch(error => error)
     }
@@ -369,6 +376,17 @@ const AdminPanel = () => {
             })
             .catch(error => console.log(error))
     }
+    const showContact = () =>{
+        setShowCurrentPage(PageEnum.contact)
+    }
+    const dispatch = useDispatch()
+    dispatch(fetchContacts())
+
+    const onDeleteClickHndContact = (id) =>{
+        console.log("hello");
+
+        dispatch(deleteContact(id))
+    } 
     return (
         <div>
             <div className="admin-panel-main">
@@ -389,6 +407,8 @@ const AdminPanel = () => {
                     <button className="admin-panel-left-title-gamepad" onClick={showGamepad}>Gamepad</button>
                     <button className="admin-panel-left-title-plan" onClick={showPlans}>Pricing Plans</button>
                     <button className="admin-panel-left-title-blog" onClick={showBlogs}>Blogs</button>
+                    <button className="admin-panel-left-title-contact" onClick={showContact}>Contact</button>
+
 
 
                 </div>
@@ -586,6 +606,38 @@ const AdminPanel = () => {
                                 </tbody>
                             </table>
                         </div>
+                    }
+                    {showCurrentPage === PageEnum.contact &&
+                        <div className="admin-panel-contact">
+                        <h2>Contacts</h2>
+                        {/* <input className="add-game-btn" type="button" value="Add Blog" onClick={openAddBlogForm} /> */}
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>Subject</th>
+                                    <th>Message</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {contacts.data.map((contact) => (
+                                    <tr key={contact.id}>
+                                        <td>{contact.name}</td>
+                                        <td>{contact.address}</td>
+                                        <td>{contact.subject}</td>
+                                        <td>{contact.message}</td>
+
+                                        <td className="remove-edit-button">
+                                            <button type="button" class="btn btn-danger" onClick={() => onDeleteClickHndContact(contact)}>x</button>
+                                            {/* <button type="button" class="btn btn-secondary" onClick={() => onEditClickHndBlog(blog)}>Edit</button> */}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                     }
 
                     {showCurrentPage === PageEnum.addgame && (
