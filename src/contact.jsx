@@ -5,11 +5,10 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addContact } from "./redux/contactSlice";
 export default function Contact({onSubmitClickHnd}) {
-    const [name,setName] = useState()
-    const [address,setAddress] = useState()
-    const [subject,setSubject] = useState()
-    const [message,setMessage] = useState()
-    const [contactList,setContactList] = useState([])
+    const [name,setName] = useState("")
+    const [address,setAddress] = useState("")
+    const [subject,setSubject] = useState("")
+    const [message,setMessage] = useState("")
     const dispatch = useDispatch()
     const onChangeNameHnd = (e)=>{
         setName(e.target.value)
@@ -32,7 +31,8 @@ export default function Contact({onSubmitClickHnd}) {
             subject:subject,
             message:message
         }
-        // dispatch(addContact(data))
+        dispatch(addContact(data))
+        window.location.reload()
     }
     return (
         <>

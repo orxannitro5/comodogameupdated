@@ -57,7 +57,7 @@ export default function Header({adminShow,opensLogin}) {
                         <NavLink to="/gallery" activeClassName="active" className="burger-menu-block-nav">GALLERY</NavLink>
                         <NavLink to="/pricing" activeClassName="active" className="burger-menu-block-nav">PRICING</NavLink>
                         <NavLink to="/blog" activeClassName="active" className="burger-menu-block-nav">BLOG</NavLink>
-                        <NavLink to="/admin" activeClassName="active" className="nav-link">Admin</NavLink>
+                        <NavLink to="/admin" activeClassName="active" className="burger-menu-block-nav" onClick={adminShow}>ADMIN</NavLink>
                         <NavLink to="/contact" activeClassName="active" className="burger-menu-block-nav">CONTACT</NavLink>
                     </div>
                 </div>

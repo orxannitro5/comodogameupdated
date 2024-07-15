@@ -16,7 +16,7 @@ import AddBlog from "./addBlog";
 import EditBlog from "./editBlog";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useDispatch, useSelector } from "react-redux";
-import { deleteContact, fetchContacts } from "./redux/contactSlice";
+import { fetchContacts,deleteContact } from "./redux/contactSlice";
 
 const AdminPanel = () => {
     const contacts = useSelector((state)=> state.contact)
@@ -36,7 +36,7 @@ const AdminPanel = () => {
         blog: "blog",
         addblog: "addblog",
         editblog: 'editblog',
-        contact:"contact"
+        contact:"contact",
     }
 
     const [showCurrentPage, setShowCurrentPage] = useState(PageEnum.admin);
@@ -51,7 +51,6 @@ const AdminPanel = () => {
     const [planToEdit, setPlanToEdit] = useState({})
     const [blogList, setBlogList] = useState([])
     const [blogToEdit, setBlogToEdit] = useState({})
-    const [contactList,setContactList] = useState([])
 
 
     useEffect(() => {
@@ -87,9 +86,9 @@ const AdminPanel = () => {
             .then(response => setBlogList(response.data))
             .catch(error => error)
     }, [])
-    // useEffect(()=>{
-    //     dispatch(fetchContacts())
-    // })
+    useEffect(()=>{
+        dispatch(fetchContacts())
+    },[])
     const openAddForm = () => {
         setShowCurrentPage(PageEnum.addgame);
     };
@@ -176,6 +175,7 @@ const AdminPanel = () => {
         let gamepad = document.querySelector(".admin-panel-left-title-gamepad")
         let plan = document.querySelector(".admin-panel-left-title-plan")
         let blog = document.querySelector(".admin-panel-left-title-blog")
+        let contact = document.querySelector(".admin-panel-left-title-contact")
 
 
         upcominggame.style.backgroundColor = "#1c0b8d"
@@ -183,6 +183,8 @@ const AdminPanel = () => {
         gamepad.style.backgroundColor = "#2c2172"
         plan.style.backgroundColor = "#2c2172"
         blog.style.backgroundColor = "#2c2172"
+        contact.style.backgroundColor = "#2c2172"
+
 
 
     }
@@ -192,12 +194,16 @@ const AdminPanel = () => {
         let gamepad = document.querySelector(".admin-panel-left-title-gamepad")
         let plan = document.querySelector(".admin-panel-left-title-plan")
         let blog = document.querySelector(".admin-panel-left-title-blog")
+        let contact = document.querySelector(".admin-panel-left-title-contact")
+
 
         upcominggame.style.backgroundColor = "#2c2172"
         screengallery.style.backgroundColor = "#1c0b8d"
         gamepad.style.backgroundColor = "#2c2172"
         plan.style.backgroundColor = "#2c2172"
         blog.style.backgroundColor = "#2c2172"
+        contact.style.backgroundColor = "#2c2172"
+
 
     }
     else if (showCurrentPage === PageEnum.gamepad) {
@@ -206,12 +212,16 @@ const AdminPanel = () => {
         let gamepad = document.querySelector(".admin-panel-left-title-gamepad")
         let plan = document.querySelector(".admin-panel-left-title-plan")
         let blog = document.querySelector(".admin-panel-left-title-blog")
+        let contact = document.querySelector(".admin-panel-left-title-contact")
+
 
         upcominggame.style.backgroundColor = "#2c2172"
         screengallery.style.backgroundColor = "#2c2172"
         gamepad.style.backgroundColor = "#1c0b8d"
         plan.style.backgroundColor = "#2c2172"
         blog.style.backgroundColor = "#2c2172"
+        contact.style.backgroundColor = "#2c2172"
+
 
     }
     else if (showCurrentPage === PageEnum.plans) {
@@ -220,11 +230,16 @@ const AdminPanel = () => {
         let gamepad = document.querySelector(".admin-panel-left-title-gamepad")
         let plan = document.querySelector(".admin-panel-left-title-plan")
         let blog = document.querySelector(".admin-panel-left-title-blog")
+        let contact = document.querySelector(".admin-panel-left-title-contact")
+
+
         upcominggame.style.backgroundColor = "#2c2172"
         screengallery.style.backgroundColor = "#2c2172"
         gamepad.style.backgroundColor = "#2c2172"
         plan.style.backgroundColor = "#1c0b8d"
         blog.style.backgroundColor = "#2c2172"
+        contact.style.backgroundColor = "#2c2172"
+
     }
     else if (showCurrentPage === PageEnum.blog) {
         let upcominggame = document.querySelector(".admin-panel-left-title-game")
@@ -232,11 +247,31 @@ const AdminPanel = () => {
         let gamepad = document.querySelector(".admin-panel-left-title-gamepad")
         let plan = document.querySelector(".admin-panel-left-title-plan")
         let blog = document.querySelector(".admin-panel-left-title-blog")
+        let contact = document.querySelector(".admin-panel-left-title-contact")
+
         upcominggame.style.backgroundColor = "#2c2172"
         screengallery.style.backgroundColor = "#2c2172"
         gamepad.style.backgroundColor = "#2c2172"
         plan.style.backgroundColor = "#2c2172"
         blog.style.backgroundColor = "#1c0b8d"
+        contact.style.backgroundColor = "#2c2172"
+
+    }
+    else if (showCurrentPage === PageEnum.contact) {
+        let upcominggame = document.querySelector(".admin-panel-left-title-game")
+        let screengallery = document.querySelector(".admin-panel-left-title-photo")
+        let gamepad = document.querySelector(".admin-panel-left-title-gamepad")
+        let plan = document.querySelector(".admin-panel-left-title-plan")
+        let blog = document.querySelector(".admin-panel-left-title-blog")
+        let contact = document.querySelector(".admin-panel-left-title-contact")
+
+        upcominggame.style.backgroundColor = "#2c2172"
+        screengallery.style.backgroundColor = "#2c2172"
+        gamepad.style.backgroundColor = "#2c2172"
+        plan.style.backgroundColor = "#2c2172"
+        blog.style.backgroundColor = "#2c2172"
+        contact.style.backgroundColor = "#1c0b8d"
+
     }
     const backToHome = () => {
         window.location.href = "http://localhost:3000"
@@ -371,7 +406,6 @@ const AdminPanel = () => {
             .then(response => {
                 let updatedList = blogList.map((e) => e.id === data.id ? response.data : e)
                 setBlogList(updatedList)
-                console.log(updatedList);
 
             })
             .catch(error => console.log(error))
@@ -380,13 +414,10 @@ const AdminPanel = () => {
         setShowCurrentPage(PageEnum.contact)
     }
     const dispatch = useDispatch()
-    dispatch(fetchContacts())
-
-    const onDeleteClickHndContact = (id) =>{
-        console.log("hello");
-
-        dispatch(deleteContact(id))
+    const onDeleteClickHndContact = (data) =>{
+        dispatch(deleteContact(data))
     } 
+   
     return (
         <div>
             <div className="admin-panel-main">
@@ -427,6 +458,8 @@ const AdminPanel = () => {
                     <button className="admin-panel-left-title-gamepad" onClick={showGamepad}>🎮</button>
                     <button className="admin-panel-left-title-plan" onClick={showPlans}>💰</button>
                     <button className="admin-panel-left-title-blog" onClick={showBlogs}>📓</button>
+                    <button className="admin-panel-left-title-contact" onClick={showContact}>📞</button>
+
 
 
 
@@ -467,8 +500,8 @@ const AdminPanel = () => {
                                                 <td><img src={game.imageURL} style={{ width: '100px', height: 'auto' }} /></td>
                                                 <td>{game.text}</td>
                                                 <td className="remove-edit-button">
-                                                    <button type="button" class="btn btn-danger" onClick={() => onDeleteClickHnd(game)} >x</button>
-                                                    <button type="button" class="btn btn-secondary" onClick={() => onEditClickHnd(game)}>Edit</button>
+                                                    <button type="button" class="btn btn-danger bootstrap-btn" onClick={() => onDeleteClickHnd(game)}>❌</button>
+                                                    <button type="button" class="btn btn-secondary bootstrap-btn" onClick={() => onEditClickHnd(game)}>✏️</button>
                                                 </td>
                                             </tr>
                                         ))}
@@ -493,8 +526,8 @@ const AdminPanel = () => {
                                             <td>{image.id}</td>
                                             <td><img src={image.imageURL} style={{ width: '100px', height: 'auto' }} /></td>
                                             <td className="remove-edit-button">
-                                                <button type="button" class="btn btn-danger" onClick={() => onDeleteClickHndImage(image)}>x</button>
-                                                <button type="button" class="btn btn-secondary" onClick={() => onEditClickHndImage(image)}>Edit</button>
+                                                <button type="button" class="btn btn-danger bootstrap-btn" onClick={() => onDeleteClickHndImage(image)}>❌</button>
+                                                <button type="button" class="btn btn-secondary bootstrap-btn" onClick={() => onEditClickHndImage(image)}>✏️</button>
 
                                             </td>
                                         </tr>
@@ -525,8 +558,8 @@ const AdminPanel = () => {
                                             <td>{users.comment}</td>
                                             {/* <td><img src={image.imageURL} style={{ width: '100px', height: 'auto' }} /></td> */}
                                             <td className="remove-edit-button">
-                                                <button type="button" class="btn btn-danger" onClick={() => onDeleteClickHndUser(users)}>x</button>
-                                                <button type="button" class="btn btn-secondary" onClick={() => onEditClickHndUser(users)}>Edit</button>
+                                                <button type="button" class="btn btn-danger bootstrap-btn" onClick={() => onDeleteClickHndUser(users)}>❌</button>
+                                                <button type="button" class="btn btn-secondary bootstrap-btn" onClick={() => onEditClickHndUser(users)}>✏️</button>
 
                                             </td>
                                         </tr>
@@ -560,8 +593,8 @@ const AdminPanel = () => {
                                             <td>{plan.game3}</td>
                                             {/* <td><img src={image.imageURL} style={{ width: '100px', height: 'auto' }} /></td> */}
                                             <td className="remove-edit-button">
-                                                <button type="button" class="btn btn-danger" onClick={() => onDeleteClickHndPlan(plan)}>x</button>
-                                                <button type="button" class="btn btn-secondary" onClick={() => onEditClickHndPlan(plan)}>Edit</button>
+                                                <button type="button" class="btn btn-danger bootstrap-btn" onClick={() => onDeleteClickHndPlan(plan)}>❌</button>
+                                                <button type="button" class="btn btn-secondary bootstrap-btn" onClick={() => onEditClickHndPlan(plan)}>✏️</button>
 
                                             </td>
                                         </tr>
@@ -589,7 +622,7 @@ const AdminPanel = () => {
                                 <tbody>
                                     {blogList.map((blog) => (
                                         <tr key={blog.id}>
-                                            <td><img src={blog.imageURL} alt="" /></td>
+                                            <td><img className="blog-table-image" src={blog.imageURL} alt="" /></td>
                                             <td>{blog.title}</td>
                                             <td>{blog.text}</td>
                                             <td>{blog.date}</td>
@@ -597,8 +630,8 @@ const AdminPanel = () => {
                                             <td>{blog.commentary}</td>
 
                                             <td className="remove-edit-button">
-                                                <button type="button" class="btn btn-danger" onClick={() => onDeleteClickHndBlog(blog)}>x</button>
-                                                <button type="button" class="btn btn-secondary" onClick={() => onEditClickHndBlog(blog)}>Edit</button>
+                                                <button type="button" class="btn btn-danger bootstrap-btn" onClick={() => onDeleteClickHndBlog(blog)}>❌</button>
+                                                <button type="button" class="btn btn-secondary bootstrap-btn" onClick={() => onEditClickHndBlog(blog)}>✏️</button>
 
                                             </td>
                                         </tr>
@@ -630,8 +663,7 @@ const AdminPanel = () => {
                                         <td>{contact.message}</td>
 
                                         <td className="remove-edit-button">
-                                            <button type="button" class="btn btn-danger" onClick={() => onDeleteClickHndContact(contact)}>x</button>
-                                            {/* <button type="button" class="btn btn-secondary" onClick={() => onEditClickHndBlog(blog)}>Edit</button> */}
+                                            <button type="button" class="btn btn-danger bootstrap-btn" onClick={() => onDeleteClickHndContact(contact)}>❌</button>
                                         </td>
                                     </tr>
                                 ))}
@@ -670,7 +702,6 @@ const AdminPanel = () => {
                     {showCurrentPage === PageEnum.editblog &&
                         <EditBlog onBackBtnHnd={closeAddBlogForm} data={blogToEdit} onUpdateClickHnd={updateBlog} />
                     }
-
                 </div>
             </div>
 

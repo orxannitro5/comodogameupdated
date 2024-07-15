@@ -6,7 +6,6 @@ import { data } from "./mail.password";
 const LoginPage = () => {
     const [mail, setMail] = useState("");
     const [password, setPassword] = useState("");
-    const navigate = useNavigate();
 
     const mailChangeHnd = (event) => {
         setMail(event.target.value);

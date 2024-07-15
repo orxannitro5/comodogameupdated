@@ -97,11 +97,13 @@ export default function Home() {
 
         let newBlogList = [...blogList];
         newBlogList[index].likes = (parseInt(newBlogList[index].likes, 10) + 1).toString();
-
+        
         axios.put(`http://localhost:4000/blogs/${blog.id}`, { ...blog, likes: newBlogList[index].likes })
             .then(() => {
                 setBlogList(newBlogList);
                 setLikedIndexes([...likedIndexes, index]);
+                let likeButtons = document.querySelectorAll(".like-btn")
+                likeButtons[index].textContent = "❤️"
             })
             .catch(err => {
                 console.error('Error updating blog:', err);
@@ -117,11 +119,8 @@ export default function Home() {
                 }
             });
         };
-
         textLength();
     }, [blogList]);
-
-
 
     return (
         <div className="home-main">

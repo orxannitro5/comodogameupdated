@@ -3,23 +3,31 @@ import axios from "axios";
 
 const initialState = {
     data: [],
-    loading: false,
-    error: ""
+    error:""
 };
 
-export const fetchContacts = createAsyncThunk("fetchContacts", async () => {
-    const response = await axios.get(`http://localhost:4000/contacts`);
-    return response.data;
+
+export const fetchContacts = createAsyncThunk("fetchContacts", () => {
+    return axios.get('http://localhost:4000/contacts')
+        .then(response => response.data)
+        .catch(error => {
+            throw new Error(error.message || 'Failed to fetch contacts');
+        });
 });
 
-export const addContact = createAsyncThunk("addContact", async (newContact) => {
-    const response = await axios.post(`http://localhost:4000/contacts`, newContact);
-    return response.data;
+
+
+export const addContact = createAsyncThunk("addContact", (newContact) => {
+    return axios.post('http://localhost:4000/contacts', newContact)
+        .then(response => response.data)
+        .catch(error => error);
 });
 
-export const deleteContact = createAsyncThunk("deleteContact", async (id) => {
-    await axios.delete(`http://localhost:4000/contacts/${id}`);
-    return id;
+
+export const deleteContact = createAsyncThunk("deleteContact",  (data) => {
+    return axios.delete(`http://localhost:4000/contacts/${data.id}`)
+     .then(response=>response.data)
+     .catch(err => err)
 });
 
 const contactSlice = createSlice({
@@ -28,13 +36,8 @@ const contactSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(fetchContacts.pending, (state) => {
-                state.loading = true;
-                state.error = "";
-            })
             .addCase(fetchContacts.fulfilled, (state, action) => {
                 state.data = action.payload;
-                state.loading = false;
             })
             .addCase(fetchContacts.rejected, (state) => {
                 state.loading = false;
@@ -48,8 +51,7 @@ const contactSlice = createSlice({
                 state.error = "Error adding contact";
             })
             .addCase(deleteContact.fulfilled, (state, action) => {
-                state.data = state.data.filter(contact => contact.id !== action.payload);
-                console.log(action.payload);
+                state.data = state.data.filter(contact => contact.id !== action.payload.id);
             })
             .addCase(deleteContact.rejected, (state) => {
                 state.error = "Error deleting contact";

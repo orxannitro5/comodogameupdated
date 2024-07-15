@@ -24,11 +24,9 @@ import { NavLink } from "react-router-dom";
 
 export default function Blog() {
     return (
-
         <div className="blog-section">
             <WatchVideoBlock />
             <div className="blog-section-content">
-
                 <div className="blog-section-last-part-block">
                     <div className="blog-section-last-part-top-block">
                         <div className="blog-section-last-part-top-block-colomns">
@@ -65,9 +63,7 @@ export default function Blog() {
                                         <p className="info-left-content">1.2M views 👁️‍🗨️</p>
                                         <p className="info-left-content">06 comments💬</p>
                                     </div>
-
                                 </div>
-
 
                                 <div className="blog-section-main-info-block">
                                     <img className="blog-section-main-info-block-image" src={coffee} alt="" />
@@ -76,7 +72,6 @@ export default function Blog() {
                                         why you should have to spend money on boot camp when you can get the MCSE study materials
                                         yourself at a fraction.</p>
                                     <NavLink to="/viewmore" exact activeClassName="active" className="blog-section-main-info-block-link">View More</NavLink>
-
 
                                 </div>
                             </div>

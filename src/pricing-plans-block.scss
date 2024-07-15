@@ -41,17 +41,20 @@ $primary-color:#2c2172;
                 justify-content: center;
                 align-items: center;
                 background-color: $primary-color ;
+                margin: 0px;
             }
             & .pricing-plans-price{
                 height: 100px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                background-color: #3f309e
+                background-color: #3f309e;
+                margin: 0px;
             }
             & .pricing-plans-infos{
                 background-color: $primary-color;
                 padding: 35px 50px 80px;
+                margin: 0px;
                 & .pricing-plans-services{
                     display: flex;
                     justify-content: center;
@@ -76,6 +79,7 @@ $primary-color:#2c2172;
                     font-family: "Rajdhani", sans-serif;
                     font-weight: bold;
                     font-style: italic;
+                    
                     &:hover{
                         background: linear-gradient(to right, #3fcaff 0%, #a4ffb0 100%);
                         color: black;

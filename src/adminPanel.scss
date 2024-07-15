@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   width: 80%;
-  height: 40px;
+  height: auto;
   border-radius: 10px;
   background-color: #2c2172;
   color: white;
@@ -81,6 +81,7 @@ div {
       & .admin-panel-left-title-contact{
         @include admin-panel-left-title-element
       }
+
     }
     & .admin-panel {
       text-align: center;
@@ -165,8 +166,8 @@ div {
               }
   
               & .remove-edit-button {
-                &.edit-btn {
-                  padding: 5px;
+                & .edit-btn {
+                  padding: 3px;
                 }
   
                 *.delete-btn {
@@ -485,6 +486,7 @@ div {
               &:nth-child(even) {
                 background-color: #dddddd;
               }
+              
   
               & td {
                 border: 1px solid #dddddd;
@@ -651,11 +653,111 @@ div {
       & .admin-panel-left-title-blog {
         @include admin-panel-left-title-element
       }
+      & .admin-panel-left-title-contact{
+        @include admin-panel-left-title-element
+      }
     
     }
   }
+}
+@media (max-width:1140px){
+  div{
+    & .admin-panel-main{
+      & .admin-panel-left{
+        display: none;
+      }
+      & .admin-panel{
+        & .open-sidebar{
+          display: none;
+        }
+        & .admin-panel-latest-blog{
+          & table{
+            & tbody{
+              & tr{
+                & .blog-table-image{
+                  width: 60px;
+                }
+              }
+            }
+          }
+        }
+      }
+      & .admin-panel-left-smaller{
+        display: flex;
+        & .a{
+          display: flex;
+          justify-content: center;
+          & .hide-sidebar{
+            display: none;
+          }
+        }
+        & .admin-panel-left-title-admin{
+          & .avatar{
+            width: 50px;
+          }
+        }
+        & .admin-panel-left-title-game{
+          width: 50%;
+        }
+        & .admin-panel-left-title-photo{
+          width: 50%;
+        }
+        & .admin-panel-left-title-contact{
+          width: 50%;
+        }
+        & .admin-panel-left-title-blog{
+          width: 50%;
+        }
+        & .admin-panel-left-title-gamepad{
+          width: 50%;
+        }
+        & .admin-panel-left-title-plan{
+          width: 50%;
+        }
 
-  
+      }
+    }
+  }
+}
+@media (max-width:768px){
+  div{
+    & .admin-panel-main{
+      & .admin-panel{
+        min-width: 70%;
+        & .admin-panel-latest-blog,.upcoming-game,.screen-gallery,.gamepad-block,.pricing-plans,.admin-panel-contact{
+          & table{
+            min-width: 70%;
+            width: 300px;
+            & thead{
+              & tr{
+                & th{
+                  font-size: 10px;
+                }
+              }
+            }
+            & tbody{
+              & tr{
+                & td{
+                  font-size: 7px;
+                  padding: 2px;
+                }
+                & .remove-edit-button{
+                  & .bootstrap-btn{
+                    padding: 0px;
+                    width: 30px;
+                  }
+                }
+                & .blog-table-image{
+                  width: 60px;
+                }
+              }
+            }
+          }
+        }
+       
+      }
+    }
+  }
 }
 
 
@@ -671,10 +773,3 @@ div {
 
 
 
-
-.admin-panel-left-smaller {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  background-color: #2c2172;
-}
